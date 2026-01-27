@@ -692,6 +692,56 @@
             font-weight: bold;
         }
 
+        /* PPT Collapsible Section */
+        .ppt-toggle {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .ppt-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 95, 180, 0.3);
+        }
+
+        .ppt-toggle .icon {
+            transition: transform 0.3s ease;
+        }
+
+        .ppt-toggle.expanded .icon {
+            transform: rotate(180deg);
+        }
+
+        .ppt-content {
+            background-color: #f5f5f5;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .ppt-content.expanded {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -854,7 +904,7 @@
                             <a href="tel:+254712345678" title="Call">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="mailto:henry@ecitizen-redesign.com" title="Email">
+                            <a href="mailto:henry@civiux-solutions.com" title="Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                             <a href="https://linkedin.com/in/henry-onyango" target="_blank" title="LinkedIn">
@@ -875,7 +925,7 @@
                             <a href="tel:+254723456789" title="Call">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="mailto:lucky@ecitizen-redesign.com" title="Email">
+                            <a href="mailto:lucky@civiux-solutions.com" title="Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                             <a href="https://linkedin.com/in/lucky-ouma" target="_blank" title="LinkedIn">
@@ -896,7 +946,7 @@
                             <a href="tel:+254734567890" title="Call">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="mailto:lilian@ecitizen-redesign.com" title="Email">
+                            <a href="mailto:lilian@civiux-solutions.com" title="Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                             <a href="https://linkedin.com/in/lilian-kennedy" target="_blank" title="LinkedIn">
@@ -917,7 +967,7 @@
                             <a href="tel:+254745678901" title="Call">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="mailto:maria@ecitizen-redesign.com" title="Email">
+                            <a href="mailto:maria@civiux-solutions.com" title="Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                             <a href="https://linkedin.com/in/maria-achola" target="_blank" title="LinkedIn">
@@ -938,7 +988,7 @@
                             <a href="tel:+254756789012" title="Call">
                                 <i class="fas fa-phone"></i>
                             </a>
-                            <a href="mailto:daniel@ecitizen-redesign.com" title="Email">
+                            <a href="mailto:daniel@civiux-solutions.com" title="Email">
                                 <i class="fas fa-envelope"></i>
                             </a>
                             <a href="https://linkedin.com/in/daniel-thiongo" target="_blank" title="LinkedIn">
@@ -952,7 +1002,7 @@
             
             <!-- Company/Developer Contact Information -->
             <div class="company-contact">
-                <h3>Project Development Team Contact</h3>
+                <h3>CiviUX Solutions Project Development Team Contact</h3>
                 <p>For inquiries about this project, collaboration opportunities, or further information about our eCitizen redesign proposal, please contact our team lead.</p>
                 
                 <div class="contact-details">
@@ -972,7 +1022,7 @@
                         </div>
                         <div>
                             <strong>Email</strong><br>
-                            <a href="mailto:contact@ecitizen-redesign.com" style="color: var(--primary-color); text-decoration: none;">contact@ecitizen-redesign.com</a>
+                            <a href="mailto:contact@civiux-solutions.com" style="color: var(--primary-color); text-decoration: none;">contact@civiux-solutions.com</a>
                         </div>
                     </div>
                     
@@ -1495,8 +1545,13 @@
             <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Final Presentation Slides</h3>
             <p>Below is the complete slide deck from our final project presentation, detailing our process from problem discovery through to evaluation and recommendations.</p>
 
-            <!-- Google Slides Embed -->
-            <div style="background-color: #f5f5f5; border-radius: var(--border-radius); padding: 25px; margin-top: 25px; text-align: center;">
+            <!-- Collapsible PPT Section -->
+            <button class="ppt-toggle" id="pptToggle">
+                <span>Click to reveal presentation slides</span>
+                <i class="fas fa-chevron-down icon"></i>
+            </button>
+
+            <div class="ppt-content" id="pptContent">
                 <h4>Usability Evaluation and Redesign of eCitizen Government Service Portal</h4>
                 <!-- IMPORTANT: Replace this iframe src with your Google Slides embed link -->
                 <iframe src="https://docs.google.com/presentation/d/1YHGdJt84GyE8dV_40DI_--3Hr1lXmuLr/embed?start=false&loop=false&delayms=3000" width="100%" height="500px" frameborder="0" style="border-radius: 8px; margin-top: 15px;" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
@@ -1551,7 +1606,7 @@
             </div>
             
             <div class="company-contact" style="margin-top: 20px;">
-                <h3>Project Development Team Contact</h3>
+                <h3>CiviUX Solutions Project Development Team Contact</h3>
                 <p>For inquiries about this project, collaboration opportunities, or further information about our eCitizen redesign proposal, please contact our team.</p>
                 
                 <div class="contact-details">
@@ -1571,7 +1626,7 @@
                         </div>
                         <div>
                             <strong>Email Address</strong><br>
-                            <a href="mailto:contact@ecitizen-redesign.com" style="color: var(--primary-color); text-decoration: none;">contact@ecitizen-redesign.com</a>
+                            <a href="mailto:contact@civiux-solutions.com" style="color: var(--primary-color); text-decoration: none;">contact@civiux-solutions.com</a>
                         </div>
                     </div>
                     
@@ -1581,7 +1636,7 @@
                         </div>
                         <div>
                             <strong>Website</strong><br>
-                            <a href="#" style="color: var(--primary-color); text-decoration: none;">www.ecitizen-redesign.com</a>
+                            <a href="#" style="color: var(--primary-color); text-decoration: none;">www.civiux-solutions.com</a>
                         </div>
                     </div>
                 </div>
@@ -1619,7 +1674,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>eCitizen Redesign Project</h3>
+                    <h3>CiviUX Solutions</h3>
                     <p>Usability Evaluation and Redesign of eCitizen Government Service Portal</p>
                     <p>Group 13 - Professional UX Design Team</p>
                     
@@ -1664,7 +1719,7 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2024 eCitizen Redesign Project. All rights reserved.</p>
+                <p>&copy; 2024 CiviUX Solutions. All rights reserved.</p>
                 <p>Professional UX Design Project | eCitizen Portal Redesign | User-Centered Design Approach</p>
             </div>
         </div>
@@ -1680,6 +1735,22 @@
             mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
+        });
+        
+        // PPT Toggle functionality
+        const pptToggle = document.getElementById('pptToggle');
+        const pptContent = document.getElementById('pptContent');
+        
+        pptToggle.addEventListener('click', () => {
+            pptToggle.classList.toggle('expanded');
+            pptContent.classList.toggle('expanded');
+            
+            // Update button text
+            if (pptToggle.classList.contains('expanded')) {
+                pptToggle.querySelector('span').textContent = 'Click to hide presentation slides';
+            } else {
+                pptToggle.querySelector('span').textContent = 'Click to reveal presentation slides';
+            }
         });
         
         // Smooth scrolling for anchor links
