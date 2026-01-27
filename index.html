@@ -147,12 +147,19 @@
         .hero h1 {
             font-family: 'Poppins', sans-serif;
             font-size: 3.2rem;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             line-height: 1.2;
             font-weight: 700;
             max-width: 900px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        .company-name {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            color: white;
+            font-weight: 700;
         }
 
         .hero p {
@@ -184,6 +191,7 @@
             transition: var(--transition);
             border: 2px solid white;
             font-size: 1rem;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -416,6 +424,104 @@
         .gallery-caption {
             padding: 15px;
             background-color: white;
+        }
+
+        /* HCI Issues Screenshots */
+        .hci-issues-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .issue-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid #c01c28;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .issue-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .issue-content {
+            padding: 20px;
+        }
+
+        .issue-content h5 {
+            color: #c01c28;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* Design Alternatives Images */
+        .design-image-container {
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .design-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .image-label {
+            font-style: italic;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* Final Prototype Screenshot */
+        .prototype-screenshot {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .prototype-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .comparison-item {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .comparison-item.before {
+            border-top: 4px solid #c01c28;
+        }
+
+        .comparison-item.after {
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .comparison-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #eee;
         }
 
         /* User & Task Analysis Components */
@@ -871,6 +977,14 @@
             .storyboard-container {
                 grid-template-columns: 1fr;
             }
+            
+            .hci-issues-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .prototype-comparison {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -903,10 +1017,11 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
+            <div class="company-name">CiviUX Solutions</div>
             <h1>Transforming Digital Experiences Through Human-Centered Design</h1>
             <p>CiviUX Solutions is a premier UX design agency specializing in creating intuitive, accessible, and efficient digital interfaces for government and public sector organizations.</p>
             <div class="hero-btns">
-                <a href="#projects" class="btn">
+                <a href="#projects" class="btn" id="viewProjectsBtn">
                     <i class="fas fa-eye"></i> View Our Projects
                 </a>
                 <a href="#contact" class="btn btn-secondary">
@@ -1089,7 +1204,7 @@
                 <h4 style="color: var(--primary-color); margin-bottom: 15px;">PROJECT OVERVIEW</h4>
                 <p>This project focuses on evaluating the usability of the eCitizen government service portal and proposing a user-centered redesign. The portal provides access to multiple government services, but many users experience difficulties due to complex navigation, unclear instructions, and inconsistent interfaces. The aim of this project is to improve usability, accessibility, and efficiency for citizens interacting with government services online.</p>
                 
-                <h4 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">PROBLEM STATEMENT</h4>
+                <h4 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">PROBLEM DEFINITION</h4>
                 <p>Although eCitizen centralizes many government services, users often struggle to complete applications successfully. The system presents long forms, technical language, and inconsistent layouts across services, which increases user errors and frustration. These usability challenges reduce trust in digital government services and discourage adoption.</p>
             </div>
             
@@ -1178,19 +1293,61 @@
                 </div>
             </div>
             
-            <!-- HCI Problems & Evaluation Criteria -->
+            <!-- HCI Problems & Existing System Screenshots -->
             <div class="project-section" style="margin-top: 40px;">
                 <div class="project-header">
                     <div class="project-icon">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <div class="project-title">HCI Problems & Evaluation Criteria</div>
+                    <div class="project-title">HCI Problems & Existing System Analysis</div>
                 </div>
                 
                 <h4 style="color: var(--primary-color); margin-bottom: 15px;">EXISTING SYSTEM ANALYSIS</h4>
                 <p>The current eCitizen system provides centralized access to government services and reduces the need for physical visits. However, it suffers from inconsistent user interfaces, unclear navigation paths, limited feedback during errors, and poor mobile optimization. These issues significantly affect task completion and overall user satisfaction.</p>
                 
-                <h4 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">EVALUATION CRITERIA FOR DESIGNS</h4>
+                <!-- HCI Issues Screenshots Section -->
+                <h4 style="color: var(--primary-color); margin-top: 40px; margin-bottom: 15px;">HCI ISSUES - EXISTING SYSTEM SCREENSHOTS</h4>
+                <p>Below are screenshots from the existing eCitizen system showing the HCI problems we identified:</p>
+                
+                <div class="hci-issues-gallery">
+                    <!-- Issue 1 -->
+                    <div class="issue-card">
+                        <img src="images/hci-issue1-complex-form.jpg" alt="Complex form with too many fields">
+                        <div class="issue-content">
+                            <h5>Issue 1: Cognitive Overload</h5>
+                            <p>Forms with 50+ fields displayed at once overwhelm users and increase errors.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Issue 2 -->
+                    <div class="issue-card">
+                        <img src="images/hci-issue2-inconsistent-layout.jpg" alt="Inconsistent layout across services">
+                        <div class="issue-content">
+                            <h5>Issue 2: Inconsistent Design</h5>
+                            <p>Different layouts for similar services confuse users and increase learning time.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Issue 3 -->
+                    <div class="issue-card">
+                        <img src="images/hci-issue3-poor-navigation.jpg" alt="Unclear navigation structure">
+                        <div class="issue-content">
+                            <h5>Issue 3: Unclear Navigation</h5>
+                            <p>Complex menu structures make it difficult for users to find services.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Issue 4 -->
+                    <div class="issue-card">
+                        <img src="images/hci-issue4-bad-error-messages.jpg" alt="Unhelpful error messages">
+                        <div class="issue-content">
+                            <h5>Issue 4: Poor Error Feedback</h5>
+                            <p>Generic error messages don't help users understand how to fix problems.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 style="color: var(--primary-color); margin-top: 40px; margin-bottom: 15px;">EVALUATION CRITERIA FOR DESIGNS</h4>
                 <p>The evaluation of the redesigned prototype is based on specific usability criteria that address the identified problems. Each design alternative was evaluated against these criteria:</p>
                 
                 <div class="criteria-grid">
@@ -1253,6 +1410,12 @@
                             <strong>Why Chosen:</strong> This alternative was selected as a baseline, replicating the existing system's structure but with improved visual organization. It tests whether clarity can be achieved through better layout alone, without changing the fundamental interaction model.
                         </div>
                         
+                        <!-- Design Image/Sketch Placeholder -->
+                        <div class="design-image-container">
+                            <img src="images/design1-form-based-sketch.jpg" alt="Form-Based Design Sketch" class="design-image">
+                            <div class="image-label">Initial sketch of form-based design alternative</div>
+                        </div>
+                        
                         <h5 style="margin-top: 20px; color: var(--primary-color);">Evaluation Against Criteria:</h5>
                         <ul class="design-feature-list">
                             <li><strong>Consistency:</strong> Good - maintains familiar structure</li>
@@ -1272,6 +1435,12 @@
                             <strong>Why Chosen:</strong> This alternative was chosen to directly combat <em>cognitive overload</em> by decomposing long, complex applications (like business licenses or passport renewals) into a sequence of simple, manageable steps.
                         </div>
                         
+                        <!-- Design Image/Sketch Placeholder -->
+                        <div class="design-image-container">
+                            <img src="images/design2-wizard-sketch.jpg" alt="Wizard-Based Design Sketch" class="design-image">
+                            <div class="image-label">Wireframe of wizard-based design with progress tracker</div>
+                        </div>
+                        
                         <h5 style="margin-top: 20px; color: var(--primary-color);">Evaluation Against Criteria:</h5>
                         <ul class="design-feature-list">
                             <li><strong>Clarity:</strong> Excellent - step-by-step guidance</li>
@@ -1289,6 +1458,12 @@
                         <h3>3. Guided Assistant Design</h3>
                         <div style="background-color: #fff8f0; padding: 15px; border-radius: 8px; margin: 15px 0;">
                             <strong>Why Chosen:</strong> This alternative was developed to address the need for <em>contextual, just-in-time help</em>. It was chosen to test if an interactive, conversational interface could better support users who don't understand government terminology or process requirements.
+                        </div>
+                        
+                        <!-- Design Image/Sketch Placeholder -->
+                        <div class="design-image-container">
+                            <img src="images/design3-guided-assistant-sketch.jpg" alt="Guided Assistant Design Sketch" class="design-image">
+                            <div class="image-label">Concept sketch of guided assistant with help prompts</div>
                         </div>
                         
                         <h5 style="margin-top: 20px; color: var(--primary-color);">Evaluation Against Criteria:</h5>
@@ -1326,6 +1501,114 @@
                             <h5 style="color: var(--accent-color);">Error Handling</h5>
                             <p>Inline validation with specific, actionable error messages</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Prototype -->
+            <div class="project-section" style="margin-top: 40px;">
+                <div class="project-header">
+                    <div class="project-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="project-title">Final Prototype & Screenshots</div>
+                </div>
+                
+                <h4 style="color: var(--primary-color); margin-bottom: 15px;">FINAL PROTOTYPE SCREENSHOTS</h4>
+                <p>The final prototype addresses the HCI issues identified in the existing system. Below are screenshots showing how our redesign solves the key problems:</p>
+                
+                <!-- Before/After Comparison -->
+                <h5 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">PROBLEM SOLUTIONS - BEFORE & AFTER</h5>
+                <div class="prototype-comparison">
+                    <!-- Comparison 1 -->
+                    <div class="comparison-item before">
+                        <h5>Before: Cognitive Overload</h5>
+                        <p>Forms with 50+ fields displayed at once</p>
+                        <img src="images/before-cognitive-overload.jpg" alt="Before - Complex form">
+                    </div>
+                    <div class="comparison-item after">
+                        <h5>After: Manageable Steps</h5>
+                        <p>Wizard-based design with 5-7 steps</p>
+                        <img src="images/after-step-by-step.jpg" alt="After - Step-by-step form">
+                    </div>
+                    
+                    <!-- Comparison 2 -->
+                    <div class="comparison-item before">
+                        <h5>Before: Inconsistent Design</h5>
+                        <p>Different layouts across services</p>
+                        <img src="images/before-inconsistent.jpg" alt="Before - Inconsistent layouts">
+                    </div>
+                    <div class="comparison-item after">
+                        <h5>After: Consistent Design System</h5>
+                        <p>Uniform layout across all services</p>
+                        <img src="images/after-consistent.jpg" alt="After - Consistent design">
+                    </div>
+                    
+                    <!-- Comparison 3 -->
+                    <div class="comparison-item before">
+                        <h5>Before: Poor Navigation</h5>
+                        <p>Complex menu structures</p>
+                        <img src="images/before-poor-navigation.jpg" alt="Before - Poor navigation">
+                    </div>
+                    <div class="comparison-item after">
+                        <h5>After: Clear Navigation</h5>
+                        <p>Simple, intuitive navigation</p>
+                        <img src="images/after-clear-navigation.jpg" alt="After - Clear navigation">
+                    </div>
+                    
+                    <!-- Comparison 4 -->
+                    <div class="comparison-item before">
+                        <h5>Before: Bad Error Messages</h5>
+                        <p>Generic, unhelpful error messages</p>
+                        <img src="images/before-bad-errors.jpg" alt="Before - Bad error messages">
+                    </div>
+                    <div class="comparison-item after">
+                        <h5>After: Helpful Error Messages</h5>
+                        <p>Specific, actionable error guidance</p>
+                        <img src="images/after-helpful-errors.jpg" alt="After - Helpful error messages">
+                    </div>
+                </div>
+                
+                <!-- Final Prototype Screenshots -->
+                <h5 style="color: var(--primary-color); margin-top: 40px; margin-bottom: 15px;">FINAL PROTOTYPE INTERFACE</h5>
+                <div class="prototype-screenshot">
+                    <img src="images/final-prototype-full.jpg" alt="Final Prototype Full Interface" class="design-image">
+                    <div class="image-label">Complete interface of the final prototype showing all key features</div>
+                </div>
+                
+                <div class="image-gallery" style="margin-top: 30px;">
+                    <div class="gallery-item">
+                        <img src="images/final-mobile-view.jpg" alt="Final prototype mobile view">
+                        <div class="gallery-caption">
+                            <p>Mobile-optimized view with responsive design</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/final-progress-tracker.jpg" alt="Progress tracker in final prototype">
+                        <div class="gallery-caption">
+                            <p>Clear progress tracker showing completion status</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="images/final-contextual-help.jpg" alt="Contextual help in final prototype">
+                        <div class="gallery-caption">
+                            <p>Contextual help system with explanations</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Prototype Links -->
+                <div style="background-color: #f0f7ff; border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center;">
+                    <h3>Access Our Working Prototypes</h3>
+                    <p>We have developed two working prototypes to demonstrate our redesign concepts:</p>
+                    
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 25px;">
+                        <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="btn" style="background-color: var(--accent-color); color: white; border: none;">
+                            <i class="fas fa-external-link-alt"></i> Google Sites Prototype
+                        </a>
+                        <a href="https://hen23.pythonanywhere.com/login" target="_blank" class="btn" style="background-color: var(--primary-color); color: white; border: none;">
+                            <i class="fas fa-sign-in-alt"></i> Interactive Login Prototype
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1419,21 +1702,6 @@
                 
                 <h4 style="color: var(--primary-color); margin-top: 40px; margin-bottom: 15px;">SUGGESTED IMPROVEMENTS</h4>
                 <p>If more time were available, the design could be improved by adding clearer document upload guidance with visual examples, more informative and actionable error messages, enhanced accessibility features for screen reader users, multilingual support to better serve Kenya's diverse population, and improved mobile optimization with larger touch targets.</p>
-                
-                <!-- Prototype Links -->
-                <div style="background-color: #f0f7ff; border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center;">
-                    <h3>Access Our Working Prototypes</h3>
-                    <p>We have developed two working prototypes to demonstrate our redesign concepts:</p>
-                    
-                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 25px;">
-                        <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="btn" style="background-color: var(--accent-color); color: white; border: none;">
-                            <i class="fas fa-external-link-alt"></i> Google Sites Prototype
-                        </a>
-                        <a href="https://hen23.pythonanywhere.com/login" target="_blank" class="btn" style="background-color: var(--primary-color); color: white; border: none;">
-                            <i class="fas fa-sign-in-alt"></i> Interactive Login Prototype
-                        </a>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -1574,6 +1842,30 @@
             mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Make "View Our Projects" button work
+        document.getElementById('viewProjectsBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                // Close mobile menu if open
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                window.scrollTo({
+                    top: projectsSection.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update active nav link
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector('nav a[href="#projects"]').classList.add('active');
+            }
         });
         
         // Smooth scrolling for anchor links
