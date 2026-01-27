@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HCI Group Project: eCitizen Redesign</title>
+    <title>HCI Project: eCitizen Portal Redesign | Group 13</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #1a5fb4;
@@ -13,8 +16,9 @@
             --light-color: #f6f5f4;
             --dark-color: #241f31;
             --text-color: #2e3440;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --border-radius: 10px;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -24,10 +28,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
             color: var(--text-color);
             background-color: #f9f9f9;
+            overflow-x: hidden;
         }
 
         .container {
@@ -38,49 +43,53 @@
 
         /* Header & Navigation */
         header {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.98);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 18px 0;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .logo h1 {
-            font-size: 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
             color: var(--primary-color);
+            letter-spacing: -0.5px;
         }
 
         .logo-icon {
             color: var(--primary-color);
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 30px;
         }
 
         nav a {
             text-decoration: none;
             color: var(--text-color);
             font-weight: 500;
-            padding: 5px 0;
+            padding: 8px 0;
             position: relative;
-            transition: color 0.3s;
+            transition: var(--transition);
         }
 
         nav a:hover {
@@ -98,8 +107,9 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 2px;
+            height: 3px;
             background-color: var(--primary-color);
+            border-radius: 3px;
         }
 
         .mobile-menu-btn {
@@ -109,399 +119,348 @@
             font-size: 1.5rem;
             color: var(--primary-color);
             cursor: pointer;
+            z-index: 1001;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(135deg, #1a5fb4 0%, #2d7cd6 50%, #3584e4 100%);
             color: white;
-            padding: 80px 0;
+            padding: 100px 0 80px;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: cover;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+            font-weight: 700;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
+            margin: 0 auto 35px;
+            opacity: 0.95;
+            font-weight: 300;
         }
 
         .hero-btns {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
+            gap: 20px;
+            margin-top: 40px;
         }
 
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 32px;
             background-color: white;
             color: var(--primary-color);
             border-radius: var(--border-radius);
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: var(--transition);
             border: 2px solid white;
+            font-size: 1rem;
         }
 
         .btn:hover {
             background-color: transparent;
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .btn-secondary {
             background-color: transparent;
             color: white;
-            border: 2px solid white;
+            border: 2px solid rgba(255, 255, 255, 0.7);
         }
 
         .btn-secondary:hover {
             background-color: white;
             color: var(--primary-color);
+            border-color: white;
         }
 
         /* Main Content */
         main {
-            padding-bottom: 60px;
+            padding-bottom: 80px;
         }
 
         .section {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
             background-color: white;
             border-radius: var(--border-radius);
-            padding: 40px;
+            padding: 50px;
             box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
         .section-header {
             display: flex;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
             border-bottom: 2px solid var(--light-color);
         }
 
         .section-icon {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            font-size: 1.3rem;
+            margin-right: 20px;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(26, 95, 180, 0.3);
         }
 
         .section h2 {
             color: var(--primary-color);
-            font-size: 1.8rem;
+            font-size: 2.1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
         }
 
         /* Team Members */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
         .team-member {
             background-color: var(--light-color);
             border-radius: var(--border-radius);
-            padding: 25px;
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
 
         .team-member:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
         }
 
         .member-avatar {
-            width: 90px;
-            height: 90px;
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 25px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 600;
+            box-shadow: 0 6px 15px rgba(53, 132, 228, 0.3);
         }
 
         .member-role {
             display: inline-block;
             background-color: var(--accent-color);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
+            padding: 6px 18px;
+            border-radius: 30px;
             font-size: 0.85rem;
             font-weight: 600;
             margin: 10px 0 15px;
+            letter-spacing: 0.5px;
         }
 
-        .member-skills {
+        .member-contact {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             margin-top: 15px;
-            font-size: 0.9rem;
-            color: #666;
-            line-height: 1.5;
         }
 
-        /* Deliverables */
-        .deliverables-list {
-            margin-top: 25px;
-        }
-
-        .deliverable-item {
-            background-color: var(--light-color);
-            border-left: 4px solid var(--primary-color);
-            margin-bottom: 20px;
-            padding: 25px;
-            border-radius: 0 var(--border-radius) var(--border-radius) 0;
-            transition: transform 0.3s;
-        }
-
-        .deliverable-item:hover {
-            transform: translateX(5px);
-        }
-
-        .deliverable-item h3 {
+        .contact-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: white;
+            border-radius: 50%;
             color: var(--primary-color);
-            margin-bottom: 10px;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icons a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .contact-phone {
+            display: block;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Company Contact */
+        .company-contact {
+            background: linear-gradient(135deg, #f6f5f4 0%, #e8f0f8 100%);
+            border-radius: var(--border-radius);
+            padding: 35px;
+            margin-top: 40px;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .company-contact h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Image Placeholders & Instructions */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 200%;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            margin: 20px 0;
+            animation: shimmer 2s infinite;
+            border: 2px dashed #ccc;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .image-instructions {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin: 30px 0;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .image-instructions h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .deliverable-icon {
-            color: var(--accent-color);
-            font-size: 1.2rem;
-        }
-
-        .deliverable-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--accent-color);
-            font-weight: 500;
-            text-decoration: none;
-            padding: 8px 15px;
-            border: 1px solid var(--accent-color);
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-
-        .deliverable-link:hover {
-            background-color: var(--accent-color);
-            color: white;
-        }
-
-        /* Design Alternatives */
-        .design-alternatives {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 25px;
-        }
-
-        .design-card {
-            flex: 1;
-            min-width: 300px;
-            background-color: var(--light-color);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            border-top: 5px solid var(--accent-color);
-            transition: transform 0.3s;
-        }
-
-        .design-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .design-card h3 {
-            color: var(--dark-color);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        /* Prototype Preview */
-        .prototype-preview {
-            background-color: var(--light-color);
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .prototype-image {
-            max-width: 100%;
-            height: auto;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .prototype-link {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            margin: 10px 5px;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        .prototype-link:hover {
-            background-color: #1f7c4d;
-            transform: translateY(-2px);
-        }
-
-        .prototype-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        /* Evaluation Results */
-        .evaluation-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-        }
-
-        .result-card {
-            background-color: var(--light-color);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            transition: transform 0.3s;
-        }
-
-        .result-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .result-card.positive {
-            border-top: 4px solid var(--accent-color);
-        }
-
-        .result-card.negative {
-            border-top: 4px solid #c01c28;
-        }
-
-        /* Image Gallery */
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .gallery-item {
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s;
-            background-color: white;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .gallery-caption {
-            padding: 15px;
-            background-color: white;
-        }
-
-        /* Task Analysis */
-        .task-analysis {
-            background-color: var(--light-color);
-            border-radius: var(--border-radius);
-            padding: 25px;
-            margin-top: 25px;
-        }
-
-        .task-list {
+        .image-instructions ol {
+            padding-left: 25px;
             margin-top: 15px;
         }
 
-        .task-list li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .task-list li:before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-            font-weight: bold;
+        .image-instructions li {
+            margin-bottom: 12px;
+            line-height: 1.6;
         }
 
         /* Footer */
         footer {
             background-color: var(--dark-color);
             color: white;
-            padding: 50px 0 25px;
-            margin-top: 50px;
+            padding: 70px 0 30px;
+            margin-top: 80px;
         }
 
         .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
         }
 
         .footer-section h3 {
             color: white;
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+            margin-bottom: 25px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
             position: relative;
-            padding-bottom: 10px;
+            padding-bottom: 15px;
         }
 
-        .footer-section h3:after {
+        .footer-section h3::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 0;
             width: 50px;
-            height: 2px;
+            height: 3px;
             background-color: var(--accent-color);
         }
 
@@ -510,13 +469,16 @@
         }
 
         .footer-links li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .footer-links a {
-            color: #ddd;
+            color: #ccc;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .footer-links a:hover {
@@ -524,32 +486,64 @@
             padding-left: 5px;
         }
 
-        .course-info {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-top: 15px;
-            line-height: 1.5;
+        .footer-links a i {
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
-            margin-top: 50px;
-            padding-top: 25px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 0.9rem;
-            opacity: 0.7;
+            opacity: 0.8;
+            line-height: 1.6;
         }
 
         /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            
+            .section {
+                padding: 40px 30px;
+            }
+        }
+
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 align-items: flex-start;
+                padding: 15px 0;
             }
             
             nav {
                 width: 100%;
-                margin-top: 15px;
+                margin-top: 20px;
                 display: none;
             }
             
@@ -563,7 +557,7 @@
             }
             
             nav li {
-                margin-bottom: 10px;
+                margin-bottom: 15px;
             }
             
             .mobile-menu-btn {
@@ -573,13 +567,22 @@
                 right: 20px;
             }
             
+            .hero {
+                padding: 80px 0 60px;
+            }
+            
             .hero h1 {
                 font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
             
             .hero-btns {
                 flex-direction: column;
                 align-items: center;
+                gap: 15px;
             }
             
             .btn {
@@ -588,34 +591,70 @@
                 text-align: center;
             }
             
-            .section {
-                padding: 25px;
-            }
-            
-            .prototype-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .design-alternatives {
-                flex-direction: column;
-            }
-            
-            .evaluation-results {
+            .team-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
             }
         }
 
-        /* Part-specific styling */
+        /* Part indicator */
         .part-indicator {
             display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(26, 95, 180, 0.2);
+        }
+
+        /* PPPT Connection Instructions */
+        .ppt-connection {
+            background-color: #f0f7ff;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px dashed var(--primary-color);
+        }
+
+        .ppt-connection h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ppt-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .ppt-step {
+            display: flex;
+            gap: 15px;
+        }
+
+        .step-number {
             background-color: var(--primary-color);
             color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 15px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -636,11 +675,12 @@
                 <nav id="mainNav">
                     <ul>
                         <li><a href="#part1" class="active">Part 1: Home & Team</a></li>
-                        <li><a href="#part2">Part 2: Problem</a></li>
-                        <li><a href="#part3">Part 3: Design</a></li>
+                        <li><a href="#part2">Part 2: Problem Analysis</a></li>
+                        <li><a href="#part3">Part 3: Design Process</a></li>
                         <li><a href="#part4">Part 4: Prototype</a></li>
                         <li><a href="#part5">Part 5: Evaluation</a></li>
                         <li><a href="#part6">Part 6: Presentation</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -650,11 +690,15 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
-            <h1>Usability Evaluation and Redesign of eCitizen Government Service Portal</h1>
-            <p>This project follows the HCI course requirements to evaluate and redesign the eCitizen portal, focusing on improving usability, accessibility, and efficiency for Kenyan citizens interacting with government services online.</p>
+            <h1>Usability Evaluation & Redesign of eCitizen Government Service Portal</h1>
+            <p>An HCI group project following a user-centered design approach to enhance accessibility, efficiency, and user satisfaction for Kenyan citizens interacting with digital government services.</p>
             <div class="hero-btns">
-                <a href="#part4" class="btn">View Prototypes</a>
-                <a href="#part6" class="btn btn-secondary">Final Presentation</a>
+                <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="btn">
+                    <i class="fas fa-external-link-alt"></i> View Google Sites Prototype
+                </a>
+                <a href="https://hen23.pythonanywhere.com/login" target="_blank" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Interactive Login Prototype
+                </a>
             </div>
         </div>
     </section>
@@ -672,10 +716,55 @@
             
             <span class="part-indicator">Project Website - Part 1</span>
             
-            <h3 style="margin-top: 20px; color: var(--primary-color);">Project Overview</h3>
+            <h3 style="margin-top: 20px; color: var(--primary-color); font-size: 1.5rem;">Project Overview</h3>
             <p>This project focuses on evaluating the usability of the eCitizen government service portal and proposing a user-centered redesign. The portal provides access to multiple government services, but many users experience difficulties due to complex navigation, unclear instructions, and inconsistent interfaces.</p>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Project Team with Roles & Functions</h3>
+            <!-- Connecting PPT to Website -->
+            <div class="ppt-connection">
+                <h4><i class="fas fa-link"></i> Connecting Presentation Slides to Website</h4>
+                <p>To integrate your PowerPoint presentation with this website, follow these steps:</p>
+                
+                <div class="ppt-steps">
+                    <div class="ppt-step">
+                        <div class="step-number">1</div>
+                        <div>
+                            <strong>Upload PPT to cloud storage</strong> (Google Drive, OneDrive, or GitHub)
+                        </div>
+                    </div>
+                    <div class="ppt-step">
+                        <div class="step-number">2</div>
+                        <div>
+                            <strong>Convert to PDF</strong> for better web compatibility (File → Save As → PDF)
+                        </div>
+                    </div>
+                    <div class="ppt-step">
+                        <div class="step-number">3</div>
+                        <div>
+                            <strong>Upload PDF to GitHub</strong> in your project repository
+                        </div>
+                    </div>
+                    <div class="ppt-step">
+                        <div class="step-number">4</div>
+                        <div>
+                            <strong>Get direct link</strong> by clicking on the file in GitHub and selecting "Download"
+                        </div>
+                    </div>
+                    <div class="ppt-step">
+                        <div class="step-number">5</div>
+                        <div>
+                            <strong>Add link to website</strong> in the "Final Presentation" section below
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 20px; font-size: 0.95rem;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Alternative:</strong> Use PowerPoint Online and embed via iframe: 
+                    <code>&lt;iframe src="PPT-ONLINE-LINK"&gt;&lt;/iframe&gt;</code>
+                </p>
+            </div>
+            
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Project Team with Roles & Contact Information</h3>
             <p><strong>Group 13 - BIT 2305 Human Computer Interface</strong></p>
             
             <div class="team-grid">
@@ -684,49 +773,146 @@
                     <h3>Henry Ochieng Onyango</h3>
                     <div class="member-role">Project Lead & Evaluation Specialist</div>
                     <p>Coordinated team activities, managed timelines, and led the evaluation phase including usability testing design and data analysis.</p>
-                    <div class="member-skills">
-                        <strong>Skills:</strong> Project Management, Statistics, User Testing
+                    <div class="member-contact">
+                        <div class="contact-icons">
+                            <a href="tel:+254712345678" title="Call">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:henry@example.com" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/example" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <span class="contact-phone">+254 712 345 678</span>
                     </div>
                 </div>
+                
                 <div class="team-member">
                     <div class="member-avatar">L</div>
                     <h3>Lucky Awino Ouma</h3>
                     <div class="member-role">UX Designer & Researcher</div>
                     <p>Conducted contextual research, user interviews, and created wireframes and design prototypes for the interface redesign.</p>
-                    <div class="member-skills">
-                        <strong>Skills:</strong> User Research, Wireframing, UI Design
+                    <div class="member-contact">
+                        <div class="contact-icons">
+                            <a href="tel:+254723456789" title="Call">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:lucky@example.com" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/example" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <span class="contact-phone">+254 723 456 789</span>
                     </div>
                 </div>
+                
                 <div class="team-member">
                     <div class="member-avatar">L</div>
                     <h3>Lilian Peyion Kennedy</h3>
                     <div class="member-role">Interaction Designer & Prototyper</div>
                     <p>Developed interactive prototypes, designed user flows, and created storyboards to visualize the user journey.</p>
-                    <div class="member-skills">
-                        <strong>Skills:</strong> Prototyping, Interaction Design, Storyboarding
+                    <div class="member-contact">
+                        <div class="contact-icons">
+                            <a href="tel:+254734567890" title="Call">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:lilian@example.com" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/example" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <span class="contact-phone">+254 734 567 890</span>
                     </div>
                 </div>
+                
                 <div class="team-member">
                     <div class="member-avatar">M</div>
                     <h3>Maria Achola</h3>
                     <div class="member-role">Content Strategist & Accessibility Specialist</div>
                     <p>Developed content strategy, improved information architecture, and ensured the design met accessibility standards.</p>
-                    <div class="member-skills">
-                        <strong>Skills:</strong> Content Strategy, Information Architecture, Accessibility
+                    <div class="member-contact">
+                        <div class="contact-icons">
+                            <a href="tel:+254745678901" title="Call">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:maria@example.com" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/example" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <span class="contact-phone">+254 745 678 901</span>
                     </div>
                 </div>
+                
                 <div class="team-member">
                     <div class="member-avatar">D</div>
                     <h3>Daniel Thiong'o</h3>
                     <div class="member-role">Technical Developer & Systems Analyst</div>
                     <p>Implemented functional prototypes, analyzed existing systems, and provided technical solutions for the redesign.</p>
-                    <div class="member-skills">
-                        <strong>Skills:</strong> Web Development, System Analysis, Technical Implementation
+                    <div class="member-contact">
+                        <div class="contact-icons">
+                            <a href="tel:+254756789012" title="Call">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                            <a href="mailto:daniel@example.com" title="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/example" target="_blank" title="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                        <span class="contact-phone">+254 756 789 012</span>
                     </div>
                 </div>
             </div>
             
-            <h3 style="margin-top: 30px; color: var(--primary-color);">Initial Problem Statement</h3>
+            <!-- Company/Developer Contact Information -->
+            <div class="company-contact">
+                <h3>Project Development Team Contact</h3>
+                <p>For inquiries about this HCI project, collaboration opportunities, or further information about our eCitizen redesign proposal, please contact our team lead.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Phone</strong><br>
+                            <a href="tel:+254740841120" style="color: var(--primary-color); text-decoration: none;">+254 740 841 120</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email</strong><br>
+                            <a href="mailto:ecitizen-redesign@example.com" style="color: var(--primary-color); text-decoration: none;">ecitizen-redesign@example.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <strong>Location</strong><br>
+                            Nairobi, Kenya
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Initial Problem Statement</h3>
             <p>Although eCitizen centralizes many government services, users often struggle to complete applications successfully. The system presents long forms, technical language, and inconsistent layouts across services, which increases user errors and frustration. These usability challenges reduce trust in digital government services and discourage adoption.</p>
         </section>
 
@@ -741,33 +927,44 @@
             
             <span class="part-indicator">Project Website - Part 2</span>
             
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Complex government forms analysis">
-                    <div class="gallery-caption">
-                        <p>Analysis of existing eCitizen forms showing complexity and inconsistent layouts</p>
-                    </div>
+            <!-- Image Instructions for GitHub -->
+            <div class="image-instructions">
+                <h4><i class="fab fa-github"></i> How to Add Your Own Images on GitHub</h4>
+                <p>To replace these image placeholders with your actual project images:</p>
+                <ol>
+                    <li><strong>Create an "images" folder</strong> in your GitHub repository</li>
+                    <li><strong>Upload your images</strong> to this folder (drag and drop or use upload button)</li>
+                    <li><strong>Get image URLs</strong> by clicking on each image file in GitHub and selecting "Download" - then copy the link address</li>
+                    <li><strong>Replace placeholder URLs</strong> in the HTML code with your actual image URLs</li>
+                    <li><strong>Recommended image names:</strong> ecitizen-current-interface.jpg, user-testing-session.jpg, design-wireframes.png, etc.</li>
+                </ol>
+                <p><strong>Example URL format:</strong> <code>https://raw.githubusercontent.com/YOUR-USERNAME/YOUR-REPO/main/images/ecitizen-interface.jpg</code></p>
+            </div>
+            
+            <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>eCitizen Current Interface Analysis</p>
+                    <small>Upload: ecitizen-current.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="User struggling with digital interface">
-                    <div class="gallery-caption">
-                        <p>Users experiencing difficulties with the current portal interface</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>User Research Session</p>
+                    <small>Upload: user-research.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Research and analysis process">
-                    <div class="gallery-caption">
-                        <p>Research process: analyzing user pain points and system deficiencies</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Task Analysis Diagram</p>
+                    <small>Upload: task-analysis.png</small>
                 </div>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Target Users & Task Analysis</h3>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Target Users & Task Analysis</h3>
             <p>The primary users of the system are Kenyan citizens with varying levels of digital literacy who access the portal using mobile phones and desktop computers. Secondary users include government officers who review and process submitted applications.</p>
             
-            <div class="task-analysis">
+            <div class="task-analysis" style="background-color: #f8f9fa; border-radius: var(--border-radius); padding: 25px; margin-top: 25px;">
                 <h4>User Tasks Analysis:</h4>
-                <ul class="task-list">
+                <ul style="padding-left: 25px; margin-top: 15px;">
                     <li>Selecting a government service from available options</li>
                     <li>Understanding service requirements and prerequisites</li>
                     <li>Filling application forms with personal and service-specific information</li>
@@ -777,14 +974,8 @@
                 </ul>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Existing System Analysis</h3>
+            <h3 style="margin-top: 30px; color: var(--primary-color); font-size: 1.5rem;">Existing System Analysis</h3>
             <p>The current eCitizen system provides centralized access to government services and reduces the need for physical visits. However, it suffers from inconsistent user interfaces, unclear navigation paths, limited feedback during errors, and poor mobile optimization. These issues significantly affect task completion and overall user satisfaction.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Usability Criteria Established</h3>
-            <p>The evaluation of the redesigned prototype is based on usability criteria such as consistency across services, clarity of navigation and instructions, effective system feedback, accessibility for diverse users, and efficiency in completing tasks with minimal errors.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Research Methodology</h3>
-            <p>We utilized multiple techniques for acquiring information: user interviews with 15 eCitizen portal users, heuristic evaluation of the existing interface, analysis of online user complaints and feedback, and review of existing literature on government service portal design.</p>
         </section>
 
         <!-- Part 3: Design Alternatives and Design Rationale -->
@@ -798,64 +989,49 @@
             
             <span class="part-indicator">Project Website - Part 3</span>
             
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Design sketches and wireframes">
-                    <div class="gallery-caption">
-                        <p>Initial design sketches exploring different layout options</p>
-                    </div>
+            <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Design Alternative 1 - Form Based</p>
+                    <small>Upload: design-alt1.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Design team collaboration session">
-                    <div class="gallery-caption">
-                        <p>Team collaboration session to brainstorm design alternatives</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Design Alternative 2 - Wizard Based</p>
+                    <small>Upload: design-alt2.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="User testing design alternatives">
-                    <div class="gallery-caption">
-                        <p>User testing sessions with design alternatives to gather feedback</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Design Alternative 3 - Guided Assistant</p>
+                    <small>Upload: design-alt3.jpg</small>
                 </div>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Design Approach</h3>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Design Approach</h3>
             <p>The project follows a user-centered design approach guided by established HCI principles. User needs, task requirements, and usability challenges identified in the problem investigation informed the design decisions. The focus was on simplifying navigation, reducing cognitive load, and providing clear step-by-step guidance throughout service applications.</p>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Design Alternatives Explored</h3>
+            <h3 style="margin-top: 30px; color: var(--primary-color); font-size: 1.5rem;">Design Alternatives Explored</h3>
             <p>Multiple design alternatives were explored during the design phase, including form-based, wizard-based and Guided Assistant Design. These alternatives helped visualize different navigation structures and interaction flows before selecting a final design that best addressed the identified usability issues.</p>
             
-            <div class="design-alternatives">
-                <div class="design-card">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 30px;">
+                <div style="background-color: var(--light-color); border-radius: var(--border-radius); padding: 25px; border-top: 5px solid var(--accent-color);">
                     <h3>Form-Based Design Alternative</h3>
                     <p><strong>Rationale:</strong> Traditional approach familiar to most users, provides complete form visibility.</p>
-                    <p><strong>Illustration:</strong> Single-page form layout with categorized sections and inline validation.</p>
-                    <p><strong>Scenario:</strong> User applying for a business license sees all requirements at once.</p>
                     <p><strong>Assessment:</strong> Users found it overwhelming for complex applications but appreciated seeing all fields.</p>
                 </div>
                 
-                <div class="design-card">
+                <div style="background-color: var(--light-color); border-radius: var(--border-radius); padding: 25px; border-top: 5px solid var(--primary-color);">
                     <h3>Wizard-Based Design Alternative</h3>
                     <p><strong>Rationale:</strong> Reduces cognitive load by breaking tasks into manageable steps.</p>
-                    <p><strong>Illustration:</strong> Multi-step interface with progress indicator and back/next navigation.</p>
-                    <p><strong>Scenario:</strong> User guided through passport application in 5 logical steps.</p>
                     <p><strong>Assessment:</strong> Users preferred this approach but wanted clearer progress tracking.</p>
                 </div>
                 
-                <div class="design-card">
+                <div style="background-color: var(--light-color); border-radius: var(--border-radius); padding: 25px; border-top: 5px solid var(--secondary-color);">
                     <h3>Guided Assistant Design Alternative</h3>
                     <p><strong>Rationale:</strong> Interactive guidance system that adapts to user needs and skill levels.</p>
-                    <p><strong>Illustration:</strong> Chat-like interface with contextual help and adaptive form presentation.</p>
-                    <p><strong>Scenario:</strong> First-time user receives step-by-step guidance with explanations.</p>
                     <p><strong>Assessment:</strong> Highly rated for novice users but considered slow by experienced users.</p>
                 </div>
             </div>
-            
-            <h3 style="margin-top: 30px; color: var(--primary-color);">Design Rationale & Selection</h3>
-            <p>Based on user feedback and heuristic evaluation, we selected a hybrid approach combining the best elements of each alternative: a wizard-based structure with clear progress indicators, supplemented by contextual help similar to the guided assistant for complex sections. This approach balances simplicity for novices with efficiency for experienced users.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Modified Requirements & Usability Criteria</h3>
-            <p>Based on design exploration, we refined our requirements to emphasize progressive disclosure of information, contextual help availability, and consistent navigation patterns across all services. Usability criteria were updated to include learnability metrics for first-time users.</p>
         </section>
 
         <!-- Part 4: Final Prototype and Evaluation Plan -->
@@ -869,74 +1045,38 @@
             
             <span class="part-indicator">Project Website - Part 4</span>
             
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Final prototype interface design">
-                    <div class="gallery-caption">
-                        <p>Final prototype showing simplified form interface with progress indicator</p>
-                    </div>
+            <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Final Prototype Interface</p>
+                    <small>Upload: final-prototype.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mobile view of prototype">
-                    <div class="gallery-caption">
-                        <p>Mobile-optimized view of the redesigned eCitizen interface</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Mobile View of Prototype</p>
+                    <small>Upload: mobile-prototype.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Consistent design across services">
-                    <div class="gallery-caption">
-                        <p>Consistent design language applied across different government services</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Storyboard User Journey</p>
+                    <small>Upload: storyboard.jpg</small>
                 </div>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Final Design Overview</h3>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Final Design Overview</h3>
             <p>The final design presents a simplified and consistent interface for general government service applications. It introduces a unified layout, clear progress indicators, and structured application steps that guide users from service selection to successful submission.</p>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Storyboard & User Journey</h3>
-            <p>The storyboard illustrates a typical user journey through the redesigned system. It shows how users select a government service, follow a clear step-by-step application process, and receive confirmation after successfully submitting their application. This visual representation helps demonstrate the intended interaction flow from the user's perspective.</p>
-            
-            <div class="prototype-preview">
+            <div class="prototype-preview" style="background-color: #f0f7ff; border-radius: var(--border-radius); padding: 30px; margin-top: 30px; text-align: center;">
                 <h3>Access Our Working Prototypes</h3>
                 <p>We have developed two working prototypes to demonstrate our redesign concepts:</p>
                 
-                <div class="prototype-links">
-                    <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="prototype-link">
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-top: 25px;">
+                    <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="btn" style="background-color: var(--accent-color); color: white; border: none;">
                         <i class="fas fa-external-link-alt"></i> Google Sites Prototype
                     </a>
-                    <a href="https://hen23.pythonanywhere.com/login" target="_blank" class="prototype-link" style="background-color: var(--primary-color);">
+                    <a href="https://hen23.pythonanywhere.com/login" target="_blank" class="btn" style="background-color: var(--primary-color); color: white; border: none;">
                         <i class="fas fa-sign-in-alt"></i> Interactive Login Prototype
                     </a>
-                </div>
-                
-                <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
-                    <i class="fas fa-info-circle"></i> The Google Sites prototype demonstrates the overall structure and flow, while the interactive login prototype shows a functional authentication interface with improved usability features.
-                </p>
-            </div>
-            
-            <h3 style="margin-top: 30px; color: var(--primary-color);">Evaluation Plan</h3>
-            <p>An evaluation plan was developed to assess whether the final prototype meets the established usability criteria. The plan includes three distinct evaluation exercises tailored to validate specific requirements and usability criteria:</p>
-            
-            <div class="deliverables-list">
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-user-check deliverable-icon"></i> Evaluation Exercise 1: Usability Testing</h3>
-                    <p><strong>Rationale:</strong> To validate efficiency and error rate criteria by observing real users completing tasks.</p>
-                    <p><strong>Method:</strong> 10 participants will complete 5 common eCitizen tasks while being observed.</p>
-                    <p><strong>Measures:</strong> Task completion rate, time on task, error count, and user satisfaction.</p>
-                </div>
-                
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-clipboard-check deliverable-icon"></i> Evaluation Exercise 2: Heuristic Evaluation</h3>
-                    <p><strong>Rationale:</strong> To validate consistency and standards compliance criteria using expert review.</p>
-                    <p><strong>Method:</strong> 3 HCI experts will evaluate the prototype against Nielsen's 10 usability heuristics.</p>
-                    <p><strong>Measures:</strong> Number and severity of heuristic violations identified by experts.</p>
-                </div>
-                
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-question-circle deliverable-icon"></i> Evaluation Exercise 3: User Questionnaire</h3>
-                    <p><strong>Rationale:</strong> To validate learnability and satisfaction criteria through subjective feedback.</p>
-                    <p><strong>Method:</strong> System Usability Scale (SUS) questionnaire administered to 15 users after prototype testing.</p>
-                    <p><strong>Measures:</strong> SUS score (0-100), qualitative feedback on specific interface elements.</p>
                 </div>
             </div>
         </section>
@@ -952,66 +1092,49 @@
             
             <span class="part-indicator">Project Website - Part 5</span>
             
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="User testing in progress">
-                    <div class="gallery-caption">
-                        <p>Usability testing session with participants performing tasks</p>
-                    </div>
+            <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Usability Testing Session</p>
+                    <small>Upload: usability-testing.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Data analysis from evaluations">
-                    <div class="gallery-caption">
-                        <p>Analysis of evaluation data collected from testing sessions</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Evaluation Data Analysis</p>
+                    <small>Upload: data-analysis.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Team reviewing evaluation results">
-                    <div class="gallery-caption">
-                        <p>Team discussion reviewing evaluation findings and insights</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Results Presentation</p>
+                    <small>Upload: results-presentation.jpg</small>
                 </div>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Evaluation Execution</h3>
-            <p>The three evaluation exercises proposed in Part 4 were executed as planned. Usability testing was conducted with 10 participants representing different user groups (novice, intermediate, and experienced eCitizen users). Heuristic evaluation was performed by 3 HCI experts, and the System Usability Scale questionnaire was administered to 15 users after interacting with the prototype.</p>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Evaluation Results</h3>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Evaluation Results</h3>
-            <div class="evaluation-results">
-                <div class="result-card positive">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 25px;">
+                <div style="background-color: #e8f7f0; border-radius: var(--border-radius); padding: 25px; border-top: 4px solid var(--accent-color);">
                     <h3>What Worked Well</h3>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li><strong>Step-by-step guidance:</strong> 90% of users completed tasks faster compared to original system</li>
-                        <li><strong>Consistent layout:</strong> Reduced confusion, especially for multi-service applications</li>
-                        <li><strong>Progress indicators:</strong> Helped users understand their position in complex processes</li>
-                        <li><strong>Structured application flow:</strong> Error rates reduced by 65% compared to existing system</li>
-                        <li><strong>System Usability Score:</strong> Achieved 78/100, indicating good to excellent usability</li>
+                    <ul style="padding-left: 20px; margin-top: 15px;">
+                        <li>Step-by-step guidance improved task completion</li>
+                        <li>Consistent layout reduced confusion</li>
+                        <li>Progress indicators helped users understand position</li>
+                        <li>Error rates reduced by 65% compared to existing system</li>
+                        <li>Achieved System Usability Score of 78/100</li>
                     </ul>
                 </div>
                 
-                <div class="result-card negative">
+                <div style="background-color: #ffe8e8; border-radius: var(--border-radius); padding: 25px; border-top: 4px solid #c01c28;">
                     <h3>Areas Needing Improvement</h3>
-                    <ul style="padding-left: 20px; margin-top: 10px;">
-                        <li><strong>Document upload requirements:</strong> 40% of users needed clarification on file formats</li>
-                        <li><strong>Error messages:</strong> Needed more specific guidance for correction</li>
-                        <li><strong>Contextual help:</strong> Some users didn't notice available help options</li>
-                        <li><strong>Mobile optimization:</strong> Touch targets were too small on some mobile devices</li>
-                        <li><strong>Accessibility features:</strong> Screen reader compatibility needed improvement</li>
+                    <ul style="padding-left: 20px; margin-top: 15px;">
+                        <li>Document upload requirements needed clarification</li>
+                        <li>Error messages needed more specific guidance</li>
+                        <li>Contextual help wasn't always noticed</li>
+                        <li>Mobile touch targets were too small on some devices</li>
+                        <li>Screen reader compatibility needed improvement</li>
                     </ul>
                 </div>
             </div>
-            
-            <h3 style="margin-top: 30px; color: var(--primary-color);">User Feedback Summary</h3>
-            <p>User feedback indicated that the step-by-step guidance and consistent layout made the system easier to use. However, some users expressed confusion regarding document upload requirements and suggested clearer instructions and error messages to improve the experience. Positive comments highlighted the reduced cognitive load and clearer navigation paths.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Overall Assessment</h3>
-            <p>Overall, the final prototype met most of its design goals by improving usability and reducing user confusion compared to the existing system. The evaluation results demonstrate that a user-centered approach can significantly enhance interaction with government service portals. Key success metrics included a 65% reduction in user errors, 40% faster task completion times, and a System Usability Score of 78/100.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Suggested Improvements for Future Work</h3>
-            <p>If more time were available, the design could be improved by adding clearer document upload guidance with visual examples, more informative and actionable error messages, enhanced accessibility features for screen reader users, multilingual support to better serve Kenya's diverse population, and improved mobile optimization with larger touch targets.</p>
-            
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Changes Suggested by Evaluation</h3>
-            <p>The evaluation suggested several specific changes: (1) Add visual examples of acceptable documents during upload, (2) Implement more specific error messages with direct correction suggestions, (3) Make contextual help more prominent with optional audio explanations, (4) Increase touch target sizes for mobile interfaces, and (5) Add language selection option on the login page.</p>
         </section>
 
         <!-- Part 6: Presentation and Critique -->
@@ -1025,114 +1148,162 @@
             
             <span class="part-indicator">Project Website - Part 6</span>
             
-            <div class="image-gallery">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Final project presentation">
-                    <div class="gallery-caption">
-                        <p>Final project presentation to class and instructors</p>
-                    </div>
+            <div class="image-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Final Presentation Session</p>
+                    <small>Upload: final-presentation.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Poster session interaction">
-                    <div class="gallery-caption">
-                        <p>Poster session interactions with peers and faculty</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Poster Session Interaction</p>
+                    <small>Upload: poster-session.jpg</small>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Project critique discussion">
-                    <div class="gallery-caption">
-                        <p>Critique session discussing project strengths and weaknesses</p>
-                    </div>
+                <div class="image-placeholder">
+                    <i class="fas fa-image fa-3x" style="margin-bottom: 15px; opacity: 0.5;"></i>
+                    <p>Project Critique Discussion</p>
+                    <small>Upload: critique-discussion.jpg</small>
                 </div>
             </div>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Final Presentation</h3>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">Final Presentation Materials</h3>
             <p>The final presentation of our project was delivered during the last week of the semester, covering all six parts of the project as outlined in the course requirements. The 25-minute presentation included an overview of the problem, our research methodology, design alternatives, final prototype, evaluation results, and recommendations for future work.</p>
             
-            <h3 style="margin-top: 25px; color: var(--primary-color);">Project Critique</h3>
-            <p>As part of the course requirements, we provided written critiques of other group projects. Below is a sample critique format that demonstrates the type of analysis we performed:</p>
-            
-            <div class="task-analysis" style="margin-top: 20px;">
-                <h4>Sample Project Critique:</h4>
-                <p><strong>Project Description:</strong> [One paragraph description of the project and what it proposed to do]</p>
-                <p><strong>Critique:</strong> [Second paragraph asking questions like: What are the weaknesses? What are the strengths? Was the evaluation technique appropriate? Would a different evaluation technique have served them better?]</p>
+            <div style="background-color: #f0f7ff; border-radius: var(--border-radius); padding: 30px; margin-top: 30px;">
+                <h4>Download Presentation Materials</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 20px;">
+                    <a href="#" class="btn" style="background-color: var(--primary-color); color: white; border: none; padding: 12px 25px;">
+                        <i class="fas fa-file-powerpoint"></i> Presentation Slides (PPTX)
+                    </a>
+                    <a href="#" class="btn" style="background-color: var(--accent-color); color: white; border: none; padding: 12px 25px;">
+                        <i class="fas fa-file-pdf"></i> Project Report (PDF)
+                    </a>
+                    <a href="#" class="btn" style="background-color: var(--secondary-color); color: white; border: none; padding: 12px 25px;">
+                        <i class="fas fa-video"></i> Presentation Recording
+                    </a>
+                </div>
+                <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>Note:</strong> Replace these placeholder links with your actual presentation files hosted on GitHub.
+                    Upload your PowerPoint/PDF to your GitHub repository and update the links above.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="section" id="contact">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h2>Contact & Project Information</h2>
             </div>
             
-            <h3 style="margin-top: 30px; color: var(--primary-color);">Project Deliverables Summary</h3>
-            
-            <div class="deliverables-list">
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-file-alt deliverable-icon"></i> Complete Project Report</h3>
-                    <p>Comprehensive documentation covering all six parts of the project with detailed methodology, findings, and recommendations.</p>
-                    <a href="#" class="deliverable-link">Download Full Report (PDF)</a>
-                </div>
+            <div class="company-contact" style="margin-top: 20px;">
+                <h3>Project Development Team Contact</h3>
+                <p>For inquiries about this HCI project, collaboration opportunities, or further information about our eCitizen redesign proposal, please contact our team.</p>
                 
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-slideshow deliverable-icon"></i> Presentation Materials</h3>
-                    <p>Final presentation slides used during the class presentation and poster session materials.</p>
-                    <a href="#" class="deliverable-link">View Presentation Slides</a>
-                </div>
-                
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-video deliverable-icon"></i> Presentation Recording</h3>
-                    <p>Video recording of the final project presentation delivered in class.</p>
-                    <a href="#" class="deliverable-link">Watch Presentation Video</a>
-                </div>
-                
-                <div class="deliverable-item">
-                    <h3><i class="fas fa-code deliverable-icon"></i> Prototype Source Code</h3>
-                    <p>Complete source code for both prototypes with documentation for future development.</p>
-                    <a href="#" class="deliverable-link">Access Code Repository</a>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <strong>Primary Contact</strong><br>
+                            <a href="tel:+254740841120" style="color: var(--primary-color); text-decoration: none; font-weight: 600;">+254 740 841 120</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <strong>Email Address</strong><br>
+                            <a href="mailto:ecitizen-redesign@example.com" style="color: var(--primary-color); text-decoration: none;">ecitizen-redesign@example.com</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div>
+                            <strong>Academic Institution</strong><br>
+                            BIT 2305 - Human Computer Interface
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <h3 style="margin-top: 30px; color: var(--primary-color);">Conclusion</h3>
-            <p>This project highlights the importance of human-computer interaction principles in the design of government digital services. By focusing on user needs and systematic evaluation, the redesigned eCitizen prototype demonstrates how usability improvements can lead to better service delivery and user satisfaction. The project followed all course requirements through six comprehensive parts, resulting in a functional prototype validated through multiple evaluation methods.</p>
+            <h3 style="margin-top: 40px; color: var(--primary-color); font-size: 1.5rem;">GitHub Hosting Information</h3>
+            <p>This project website is hosted on GitHub Pages. To deploy your own version:</p>
             
-            <div class="prototype-preview" style="margin-top: 30px; background-color: #e8f4f8;">
-                <h3>Project Legacy & Future Work</h3>
-                <p>This project provides a foundation for continued improvement of the eCitizen portal. The prototypes, research findings, and design recommendations can inform future development efforts by the Kenyan government to enhance digital service delivery. The user-centered design approach demonstrated here can be applied to other government digital services to improve accessibility and efficiency nationwide.</p>
+            <div style="background-color: #f5f5f5; border-radius: var(--border-radius); padding: 25px; margin-top: 20px;">
+                <ol style="padding-left: 25px;">
+                    <li>Create a new GitHub repository</li>
+                    <li>Upload this HTML file (rename to index.html)</li>
+                    <li>Create an "images" folder and upload your project images</li>
+                    <li>Go to Repository Settings → Pages → Select "main" branch as source</li>
+                    <li>Your site will be published at: <code>https://YOUR-USERNAME.github.io/REPO-NAME</code></li>
+                </ol>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>HCI Group Project</h3>
                     <p>Usability Evaluation and Redesign of eCitizen Government Service Portal</p>
-                    <p class="course-info">BIT 2305 Human Computer Interface<br>Group 13<br>Following Six-Part Project Structure</p>
+                    <p>BIT 2305 Human Computer Interface<br>Group 13<br>Following Six-Part Project Structure</p>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://youtube.com" target="_blank" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Project Parts</h3>
                     <ul class="footer-links">
-                        <li><a href="#part1">Part 1: Project Definition</a></li>
-                        <li><a href="#part2">Part 2: Problem Investigation</a></li>
-                        <li><a href="#part3">Part 3: Design Alternatives</a></li>
-                        <li><a href="#part4">Part 4: Final Prototype</a></li>
-                        <li><a href="#part5">Part 5: Evaluation</a></li>
-                        <li><a href="#part6">Part 6: Presentation</a></li>
+                        <li><a href="#part1"><i class="fas fa-chevron-right"></i> Part 1: Project Definition</a></li>
+                        <li><a href="#part2"><i class="fas fa-chevron-right"></i> Part 2: Problem Investigation</a></li>
+                        <li><a href="#part3"><i class="fas fa-chevron-right"></i> Part 3: Design Alternatives</a></li>
+                        <li><a href="#part4"><i class="fas fa-chevron-right"></i> Part 4: Final Prototype</a></li>
+                        <li><a href="#part5"><i class="fas fa-chevron-right"></i> Part 5: Evaluation</a></li>
+                        <li><a href="#part6"><i class="fas fa-chevron-right"></i> Part 6: Presentation</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
-                    <h3>Project Resources</h3>
+                    <h3>Resources & Prototypes</h3>
                     <ul class="footer-links">
-                        <li><a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank">Google Sites Prototype</a></li>
-                        <li><a href="https://hen23.pythonanywhere.com/login" target="_blank">Interactive Login Prototype</a></li>
-                        <li><a href="#">Complete Project Report</a></li>
-                        <li><a href="#">Evaluation Data</a></li>
-                        <li><a href="#">Presentation Slides</a></li>
+                        <li><a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank"><i class="fas fa-external-link-alt"></i> Google Sites Prototype</a></li>
+                        <li><a href="https://hen23.pythonanywhere.com/login" target="_blank"><i class="fas fa-sign-in-alt"></i> Interactive Login Prototype</a></li>
+                        <li><a href="#"><i class="fas fa-file-powerpoint"></i> Presentation Slides</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Project Report</a></li>
+                        <li><a href="#contact"><i class="fas fa-phone"></i> Contact: +254 740 841 120</a></li>
                     </ul>
                 </div>
             </div>
             
             <div class="copyright">
                 <p>&copy; 2024 HCI Group Project - BIT 2305. All rights reserved.</p>
-                <p>This website follows the six-part course project template requirements for Human Computer Interface as outlined in the course document.</p>
+                <p>This website follows the six-part course project template requirements for Human Computer Interface.</p>
+                <p style="margin-top: 10px;">Website hosted on GitHub Pages | Academic Project | eCitizen Portal Redesign</p>
             </div>
         </div>
     </footer>
@@ -1152,9 +1323,14 @@
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                // Don't prevent default for #home (let it go to top)
+                if (href === '#home') return;
+                
                 e.preventDefault();
                 
-                const targetId = this.getAttribute('href');
+                const targetId = href;
                 if (targetId === '#') return;
                 
                 const targetElement = document.querySelector(targetId);
@@ -1166,7 +1342,7 @@
                     }
                     
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                     
@@ -1200,6 +1376,12 @@
                     link.classList.add('active');
                 }
             });
+            
+            // If at top of page, highlight home
+            if (window.scrollY < 100) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                document.querySelector('nav a[href="#part1"]').classList.add('active');
+            }
         });
         
         // Initialize the first link as active
@@ -1207,11 +1389,21 @@
         
         // Add interactivity to team member cards
         document.querySelectorAll('.team-member').forEach(member => {
-            member.addEventListener('click', function() {
-                this.style.transform = this.style.transform === 'translateY(-5px) scale(1.02)' 
-                    ? 'translateY(0) scale(1)' 
-                    : 'translateY(-5px) scale(1.02)';
+            member.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
             });
+            
+            member.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add current year to footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.querySelector('.copyright p');
+            if (yearSpan) {
+                yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
+            }
         });
     </script>
 </body>
