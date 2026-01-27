@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI Group Project: eCitizen Redesign</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a5fb4;
+            --secondary-color: #3584e4;
+            --accent-color: #26a269;
+            --light-color: #f6f5f4;
+            --dark-color: #241f31;
+            --text-color: #2e3440;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .logo-icon {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        nav a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: white;
+            color: var(--primary-color);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Main Content */
+        main {
+            padding-bottom: 60px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .section-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.3rem;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        /* Team Members */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-avatar {
+            width: 80px;
+            height: 80px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        /* Deliverables */
+        .deliverables-list {
+            margin-top: 25px;
+        }
+
+        .deliverable-item {
+            background-color: var(--light-color);
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .deliverable-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .deliverable-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--accent-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .deliverable-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Design Alternatives */
+        .design-alternatives {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 25px;
+        }
+
+        .design-card {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .design-card h3 {
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+
+        /* Prototype Preview */
+        .prototype-preview {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .prototype-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .prototype-link {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .prototype-link:hover {
+            background-color: #1f7c4d;
+        }
+
+        /* Evaluation Results */
+        .evaluation-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .result-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+
+        .result-card.positive {
+            border-top: 4px solid var(--accent-color);
+        }
+
+        .result-card.negative {
+            border-top: 4px solid #c01c28;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .course-info {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav {
+                width: 100%;
+                margin-top: 15px;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            nav li {
+                margin-bottom: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                text-align: center;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-laptop-code logo-icon"></i>
+                    <h1>HCI Project: eCitizen Redesign</h1>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#problem">Problem</a></li>
+                        <li><a href="#design">Design</a></li>
+                        <li><a href="#prototype">Prototype</a></li>
+                        <li><a href="#evaluation">Evaluation</a></li>
+                        <li><a href="#deliverables">Deliverables</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Usability Evaluation and Redesign of eCitizen Government Service Portal</h1>
+            <p>This project focuses on evaluating the usability of the eCitizen government service portal and proposing a user-centered redesign to improve accessibility, efficiency, and user satisfaction for Kenyan citizens interacting with government services online.</p>
+            <div class="hero-btns">
+                <a href="#prototype" class="btn">View Prototype</a>
+                <a href="#deliverables" class="btn btn-secondary">Project Deliverables</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Team Information -->
+        <section class="section" id="team">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2>Project Team</h2>
+            </div>
+            <p><strong>Group Name:</strong> Group 13</p>
+            <p><strong>Course:</strong> BIT 2305 Human Computer Interface</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">H</div>
+                    <h3>Henry Ochieng Onyango</h3>
+                    <p>SCT221-0262/2022</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">L</div>
+                    <h3>Lucky Awino Ouma</h3>
+                    <p>SCT221-0733/2022</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">L</div>
+                    <h3>Lilian Peyion Kennedy</h3>
+                    <p>SCT221-0637/2022</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">M</div>
+                    <h3>Maria Achola</h3>
+                    <p>SCT221-0231/2022</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">D</div>
+                    <h3>Daniel Thiong'o</h3>
+                    <p>SCT221-0767/2022</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Statement -->
+        <section class="section" id="problem">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2>Problem Statement</h2>
+            </div>
+            <p>Although eCitizen centralizes many government services, users often struggle to complete applications successfully. The system presents long forms, technical language, and inconsistent layouts across services, which increases user errors and frustration.</p>
+            
+            <h3 style="margin-top: 25px; color: var(--primary-color);">Target Users</h3>
+            <p>The primary users are Kenyan citizens with varying levels of digital literacy who access the portal using mobile phones and desktop computers. Secondary users include government officers who review and process submitted applications.</p>
+            
+            <h3 style="margin-top: 25px; color: var(--primary-color);">Existing System Analysis</h3>
+            <p>The current eCitizen system provides centralized access but suffers from inconsistent user interfaces, unclear navigation paths, limited feedback during errors, and poor mobile optimization.</p>
+        </section>
+
+        <!-- Design Process -->
+        <section class="section" id="design">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-pencil-ruler"></i>
+                </div>
+                <h2>Design Process & Alternatives</h2>
+            </div>
+            
+            <h3 style="margin-top: 20px; color: var(--primary-color);">Design Approach</h3>
+            <p>The project follows a user-centered design approach guided by established HCI principles. User needs, task requirements, and usability challenges informed the design decisions with focus on simplifying navigation, reducing cognitive load, and providing clear step-by-step guidance.</p>
+            
+            <h3 style="margin-top: 25px; color: var(--primary-color);">Design Alternatives</h3>
+            <div class="design-alternatives">
+                <div class="design-card">
+                    <h3>Form-Based Design</h3>
+                    <p>Traditional form layout with all fields displayed at once. Provides complete overview but can be overwhelming for complex applications.</p>
+                </div>
+                <div class="design-card">
+                    <h3>Wizard-Based Design</h3>
+                    <p>Step-by-step approach breaking complex forms into smaller sections. Reduces cognitive load but may hide overall progress.</p>
+                </div>
+                <div class="design-card">
+                    <h3>Guided Assistant Design</h3>
+                    <p>Interactive assistant that guides users through the process with contextual help and explanations. Most user-friendly but complex to implement.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prototype -->
+        <section class="section" id="prototype">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h2>Final Prototype</h2>
+            </div>
+            
+            <h3 style="margin-top: 20px; color: var(--primary-color);">Final Design Overview</h3>
+            <p>The final design presents a simplified and consistent interface for government service applications. It introduces a unified layout, clear progress indicators, and structured application steps that guide users from service selection to successful submission.</p>
+            
+            <div class="prototype-preview">
+                <h3>Functional Prototype</h3>
+                <p>The functional prototype was implemented using Google Sites to simulate the structure and interaction flow of the redesigned eCitizen portal.</p>
+                <div style="background-color: #e0e0e0; height: 250px; border-radius: var(--border-radius); display: flex; align-items: center; justify-content: center; margin: 20px 0;">
+                    <i class="fas fa-desktop" style="font-size: 4rem; color: #888;"></i>
+                </div>
+                <a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank" class="prototype-link">
+                    <i class="fas fa-external-link-alt"></i> View Live Prototype
+                </a>
+            </div>
+        </section>
+
+        <!-- Evaluation -->
+        <section class="section" id="evaluation">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h2>Evaluation & Results</h2>
+            </div>
+            
+            <h3 style="margin-top: 20px; color: var(--primary-color);">Evaluation Plan</h3>
+            <p>The evaluation plan included usability testing with representative users, heuristic evaluation based on HCI principles, and a user questionnaire to collect subjective feedback on the system's usability.</p>
+            
+            <h3 style="margin-top: 25px; color: var(--primary-color);">Evaluation Results</h3>
+            <div class="evaluation-results">
+                <div class="result-card positive">
+                    <h3>What Worked Well</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Step-by-step guidance improved task completion</li>
+                        <li>Consistent layout reduced confusion</li>
+                        <li>Progress indicators helped users understand their position</li>
+                        <li>Structured application flow reduced errors</li>
+                    </ul>
+                </div>
+                
+                <div class="result-card negative">
+                    <h3>Areas Needing Improvement</h3>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Document upload requirements were unclear</li>
+                        <li>Error messages needed more detail</li>
+                        <li>Contextual help was insufficient</li>
+                        <li>Mobile optimization could be enhanced</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 25px; color: var(--primary-color);">Suggested Improvements</h3>
+            <p>If more time were available, the design could be improved by adding clearer document upload guidance, more informative error messages, enhanced accessibility features, and multilingual support to better serve a wider range of users.</p>
+        </section>
+
+        <!-- Project Deliverables -->
+        <section class="section" id="deliverables">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-folder-open"></i>
+                </div>
+                <h2>Project Deliverables</h2>
+            </div>
+            
+            <p>This project follows the six-part structure outlined in the HCI course requirements:</p>
+            
+            <div class="deliverables-list">
+                <div class="deliverable-item">
+                    <h3>Part 1: Project Definition & Team Formation</h3>
+                    <p>Defined team members, project scope, and established project website.</p>
+                </div>
+                
+                <div class="deliverable-item">
+                    <h3>Part 2: Problem Investigation & Contextual Research</h3>
+                    <p>Conducted user analysis, task analysis, and existing system evaluation.</p>
+                    <a href="#" class="deliverable-link">View Detailed Report →</a>
+                </div>
+                
+                <div class="deliverable-item">
+                    <h3>Part 3: Design Alternatives & Rationale</h3>
+                    <p>Created multiple design alternatives with sketches, storyboards, and scenarios.</p>
+                    <a href="#" class="deliverable-link">View Design Alternatives →</a>
+                </div>
+                
+                <div class="deliverable-item">
+                    <h3>Part 4: Final Prototype & Evaluation Plan</h3>
+                    <p>Developed functional prototype and detailed evaluation plan.</p>
+                    <a href="#" class="deliverable-link">View Prototype Details →</a>
+                </div>
+                
+                <div class="deliverable-item">
+                    <h3>Part 5: Evaluation Execution & Analysis</h3>
+                    <p>Conducted usability tests, collected user feedback, and analyzed results.</p>
+                    <a href="#" class="deliverable-link">View Evaluation Results →</a>
+                </div>
+                
+                <div class="deliverable-item">
+                    <h3>Part 6: Final Presentation & Critique</h3>
+                    <p>Prepared final presentation and critique of the project outcomes.</p>
+                    <a href="#" class="deliverable-link">View Presentation →</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HCI Group Project</h3>
+                    <p>Usability Evaluation and Redesign of eCitizen Government Service Portal</p>
+                    <p class="course-info">BIT 2305 Human Computer Interface<br>Group 13</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#team">Team Members</a></li>
+                        <li><a href="#problem">Problem Statement</a></li>
+                        <li><a href="#prototype">Prototype</a></li>
+                        <li><a href="#deliverables">Deliverables</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Project Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://sites.google.com/view/ecitizenredesign/home" target="_blank">Functional Prototype</a></li>
+                        <li><a href="#">Presentation Slides</a></li>
+                        <li><a href="#">Project Report</a></li>
+                        <li><a href="#">Evaluation Data</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 HCI Group Project - BIT 2305. All rights reserved.</p>
+                <p>This website follows the course project template requirements for Human Computer Interface.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Initialize the first link as active
+        document.querySelector('nav a[href="#home"]').classList.add('active');
+    </script>
+</body>
+</html>
