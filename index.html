@@ -404,6 +404,7 @@
             box-shadow: var(--shadow);
             transition: transform 0.3s;
             background-color: white;
+            cursor: pointer;
         }
 
         .gallery-item:hover {
@@ -415,6 +416,7 @@
             height: 200px;
             object-fit: cover;
             transition: transform 0.5s;
+            pointer-events: none; /* prevents interference with click on parent */
         }
 
         .gallery-item:hover img {
@@ -441,6 +443,7 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             border-top: 4px solid #c01c28;
+            cursor: pointer;
         }
 
         .issue-card:hover {
@@ -453,6 +456,7 @@
             height: 180px;
             object-fit: cover;
             border-bottom: 1px solid #eee;
+            pointer-events: none;
         }
 
         .issue-content {
@@ -469,6 +473,7 @@
         .design-image-container {
             margin: 25px 0;
             text-align: center;
+            cursor: pointer;
         }
 
         .design-image {
@@ -478,6 +483,11 @@
             box-shadow: var(--shadow);
             border: 1px solid #eee;
             margin-bottom: 15px;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+        .design-image-container:hover .design-image {
+            opacity: 0.9;
         }
 
         .image-label {
@@ -491,6 +501,10 @@
         .prototype-screenshot {
             margin: 30px 0;
             text-align: center;
+            cursor: pointer;
+        }
+        .prototype-screenshot .design-image {
+            pointer-events: none;
         }
 
         .prototype-comparison {
@@ -506,6 +520,20 @@
             padding: 25px;
             box-shadow: var(--shadow);
             text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .comparison-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .comparison-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #eee;
+            pointer-events: none;
         }
 
         .comparison-item.before {
@@ -514,14 +542,6 @@
 
         .comparison-item.after {
             border-top: 4px solid var(--accent-color);
-        }
-
-        .comparison-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-top: 15px;
-            border: 1px solid #eee;
         }
 
         /* User & Task Analysis Components */
@@ -885,6 +905,49 @@
             margin-bottom: 15px;
         }
 
+        /* Lightbox styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        .lightbox-caption {
+            color: white;
+            margin-top: 15px;
+            font-size: 1rem;
+            text-align: center;
+            max-width: 80%;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .lightbox-close:hover {
+            transform: scale(1.2);
+            color: #ccc;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -989,6 +1052,13 @@
     </style>
 </head>
 <body>
+    <!-- Lightbox container (added) -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <img id="lightboxImg" src="" alt="">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
     <!-- Header & Navigation -->
     <header>
         <div class="container">
@@ -1311,7 +1381,7 @@
                 
                 <div class="hci-issues-gallery">
                     <!-- Issue 1 -->
-                    <div class="issue-card">
+                    <div class="issue-card" onclick="openLightbox(this)">
                         <img src="images/hci-issue1-complex-form.jpg" alt="Complex form with too many fields">
                         <div class="issue-content">
                             <h5>Issue 1: Cognitive Overload</h5>
@@ -1320,7 +1390,7 @@
                     </div>
                     
                     <!-- Issue 2 -->
-                    <div class="issue-card">
+                    <div class="issue-card" onclick="openLightbox(this)">
                         <img src="images/hci-issue2-inconsistent-layout.jpg" alt="Inconsistent layout across services">
                         <div class="issue-content">
                             <h5>Issue 2: Inconsistent Design</h5>
@@ -1329,7 +1399,7 @@
                     </div>
                     
                     <!-- Issue 3 -->
-                    <div class="issue-card">
+                    <div class="issue-card" onclick="openLightbox(this)">
                         <img src="images/hci-issue3-poor-navigation.jpg" alt="Unclear navigation structure">
                         <div class="issue-content">
                             <h5>Issue 3: Unclear Navigation</h5>
@@ -1338,7 +1408,7 @@
                     </div>
                     
                     <!-- Issue 4 -->
-                    <div class="issue-card">
+                    <div class="issue-card" onclick="openLightbox(this)">
                         <img src="images/hci-issue4-bad-error-messages.jpg" alt="Unhelpful error messages">
                         <div class="issue-content">
                             <h5>Issue 4: Poor Error Feedback</h5>
@@ -1411,7 +1481,7 @@
                         </div>
                         
                         <!-- Design Image/Sketch Placeholder -->
-                        <div class="design-image-container">
+                        <div class="design-image-container" onclick="openLightbox(this)">
                             <img src="images/design-form-based.jpg" alt="Form-Based Design Sketch" class="design-image">
                             <div class="image-label">Initial sketch of form-based design alternative</div>
                         </div>
@@ -1436,7 +1506,7 @@
                         </div>
                         
                         <!-- Design Image/Sketch Placeholder -->
-                        <div class="design-image-container">
+                        <div class="design-image-container" onclick="openLightbox(this)">
                             <img src="images/design-wizard-based.jpg" alt="Wizard-Based Design Sketch" class="design-image">
                             <div class="image-label">Wireframe of wizard-based design with progress tracker</div>
                         </div>
@@ -1461,7 +1531,7 @@
                         </div>
                         
                         <!-- Design Image/Sketch Placeholder -->
-                        <div class="design-image-container">
+                        <div class="design-image-container" onclick="openLightbox(this)">
                             <img src="images/design-guided-assistant.jpg" alt="Guided Assistant Design Sketch" class="design-image">
                             <div class="image-label">Concept sketch of guided assistant with help prompts</div>
                         </div>
@@ -1521,48 +1591,48 @@
                 <h5 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">PROBLEM SOLUTIONS - BEFORE & AFTER</h5>
                 <div class="prototype-comparison">
                     <!-- Comparison 1 -->
-                    <div class="comparison-item before">
+                    <div class="comparison-item before" onclick="openLightbox(this)">
                         <h5>Before: Cognitive Overload</h5>
                         <p>Forms with 50+ fields displayed at once</p>
                         <img src="images/before-cognitive-overload.jpg" alt="Before - Complex form">
                     </div>
-                    <div class="comparison-item after">
+                    <div class="comparison-item after" onclick="openLightbox(this)">
                         <h5>After: Manageable Steps</h5>
                         <p>Wizard-based design with 5-7 steps</p>
                         <img src="images/after-step-by-step.jpg" alt="After - Step-by-step form">
                     </div>
                     
                     <!-- Comparison 2 -->
-                    <div class="comparison-item before">
+                    <div class="comparison-item before" onclick="openLightbox(this)">
                         <h5>Before: Inconsistent Design</h5>
                         <p>Different layouts across services</p>
                         <img src="images/before-inconsistent.jpg" alt="Before - Inconsistent layouts">
                     </div>
-                    <div class="comparison-item after">
+                    <div class="comparison-item after" onclick="openLightbox(this)">
                         <h5>After: Consistent Design System</h5>
                         <p>Uniform layout across all services</p>
                         <img src="images/after-consistent.jpg" alt="After - Consistent design">
                     </div>
                     
                     <!-- Comparison 3 -->
-                    <div class="comparison-item before">
+                    <div class="comparison-item before" onclick="openLightbox(this)">
                         <h5>Before: Poor Navigation</h5>
                         <p>Complex menu structures</p>
                         <img src="images/before-poor-navigation.jpg" alt="Before - Poor navigation">
                     </div>
-                    <div class="comparison-item after">
+                    <div class="comparison-item after" onclick="openLightbox(this)">
                         <h5>After: Clear Navigation</h5>
                         <p>Simple, intuitive navigation</p>
                         <img src="images/after-clear-navigation.jpg" alt="After - Clear navigation">
                     </div>
                     
                     <!-- Comparison 4 -->
-                    <div class="comparison-item before">
+                    <div class="comparison-item before" onclick="openLightbox(this)">
                         <h5>Before: Bad Error Messages</h5>
                         <p>Generic, unhelpful error messages</p>
                         <img src="images/before-bad-errors.jpg" alt="Before - Bad error messages">
                     </div>
-                    <div class="comparison-item after">
+                    <div class="comparison-item after" onclick="openLightbox(this)">
                         <h5>After: Helpful Error Messages</h5>
                         <p>Specific, actionable error guidance</p>
                         <img src="images/after-helpful-errors.jpg" alt="After - Helpful error messages">
@@ -1571,25 +1641,25 @@
                 
                 <!-- Final Prototype Screenshots -->
                 <h5 style="color: var(--primary-color); margin-top: 40px; margin-bottom: 15px;">FINAL PROTOTYPE INTERFACE</h5>
-                <div class="prototype-screenshot">
+                <div class="prototype-screenshot" onclick="openLightbox(this)">
                     <img src="images/final-prototype-full.jpg" alt="Final Prototype Full Interface" class="design-image">
                     <div class="image-label">Complete interface of the final prototype showing all key features</div>
                 </div>
                 
                 <div class="image-gallery" style="margin-top: 30px;">
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openLightbox(this)">
                         <img src="images/final-mobile-view.jpg" alt="Final prototype mobile view">
                         <div class="gallery-caption">
                             <p>Mobile-optimized view with responsive design</p>
                         </div>
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openLightbox(this)">
                         <img src="images/final-progress-tracker.jpg" alt="Progress tracker in final prototype">
                         <div class="gallery-caption">
                             <p>Clear progress tracker showing completion status</p>
                         </div>
                     </div>
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openLightbox(this)">
                         <img src="images/final-contextual-help.jpg" alt="Contextual help in final prototype">
                         <div class="gallery-caption">
                             <p>Contextual help system with explanations</p>
@@ -1830,6 +1900,59 @@
     </footer>
 
     <script>
+        // Lightbox functions
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCaption = document.getElementById('lightboxCaption');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        function openLightbox(element) {
+            // try to get image from clicked element's img child
+            const img = element.querySelector('img');
+            if (!img) return;
+            
+            const src = img.getAttribute('src');
+            const alt = img.getAttribute('alt') || 'Enlarged view';
+            
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
+            
+            // try to get caption from next sibling or parent caption
+            let caption = '';
+            const captionElem = element.querySelector('.image-label, .gallery-caption p, .issue-content h5, h5, p');
+            if (captionElem) {
+                caption = captionElem.innerText;
+            } else {
+                // fallback to alt text
+                caption = alt;
+            }
+            lightboxCaption.innerText = caption;
+            
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox || e.target === lightboxClose) {
+                closeLightbox();
+            }
+        });
+
+        // Add click listeners to all relevant containers (some already have onclick in markup)
+        // Additional ones: gallery-item, issue-card, design-image-container, comparison-item, prototype-screenshot
+        // They already have onclick attributes, but ensure any missing ones are covered.
+        document.querySelectorAll('.gallery-item, .issue-card, .design-image-container, .comparison-item, .prototype-screenshot').forEach(el => {
+            // if onclick not already set by attribute, set it
+            if (!el.hasAttribute('onclick')) {
+                el.addEventListener('click', function() { openLightbox(this); });
+            }
+        });
+
         // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mainNav = document.getElementById('mainNav');
