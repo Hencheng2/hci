@@ -928,6 +928,63 @@
             color: #ccc;
         }
 
+        /* ---------- Collapsible PPT panel (new) ---------- */
+        .collapsible-ppt {
+            margin: 30px 0 10px;
+            border: 1px solid #e0e7ef;
+            border-radius: var(--border-radius);
+            background-color: #f9fcff;
+            overflow: hidden;
+        }
+        .ppt-toggle {
+            width: 100%;
+            background: linear-gradient(135deg, #e6f0fa, #d9e8f5);
+            border: none;
+            padding: 18px 25px;
+            text-align: left;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        .ppt-toggle i {
+            font-size: 1.6rem;
+            color: var(--accent-color);
+            transition: transform 0.3s;
+        }
+        .ppt-toggle[aria-expanded="true"] i {
+            transform: rotate(90deg);
+        }
+        .ppt-toggle:hover {
+            background: #d0e3f5;
+        }
+        .ppt-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            background-color: white;
+        }
+        .ppt-content.show {
+            max-height: 700px; /* enough to show iframe */
+            transition: max-height 0.6s ease-in;
+        }
+        .ppt-iframe-wrapper {
+            padding: 25px;
+            background: #f1f5f9;
+        }
+        .ppt-iframe-wrapper iframe {
+            width: 100%;
+            height: 450px;
+            border: 0;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero h1 {
@@ -1027,6 +1084,9 @@
             
             .prototype-showcase {
                 grid-template-columns: 1fr;
+            }
+            .ppt-iframe-wrapper iframe {
+                height: 300px;
             }
         }
     </style>
@@ -1621,7 +1681,7 @@
                 </div>
             </div>
             
-            <!-- Final Evaluation (unchanged) -->
+            <!-- Final Evaluation & Results — with collapsible PPT panel (new) -->
             <div class="project-section" style="margin-top: 40px;">
                 <div class="project-header">
                     <div class="project-icon">
@@ -1629,7 +1689,32 @@
                     </div>
                     <div class="project-title">Final Evaluation & Results</div>
                 </div>
-                <!-- ... rest of evaluation ... (truncated for brevity, but remains in final output) -->
+                <!-- summary text (keep brief) -->
+                <p>We conducted usability testing with 20 participants representing diverse digital literacy levels. The redesigned prototype showed significant improvements across all key metrics. For full details, including comparative data and user feedback, explore our presentation slides below.</p>
+                
+                <!-- collapsible PPT embed -->
+                <div class="collapsible-ppt">
+                    <button class="ppt-toggle" id="pptToggle" aria-expanded="false">
+                        <i class="fas fa-chevron-right"></i> 
+                        <span>📊 View full evaluation presentation (Google Slides)</span>
+                    </button>
+                    <div class="ppt-content" id="pptContent">
+                        <div class="ppt-iframe-wrapper">
+                            <iframe src="https://docs.google.com/presentation/d/1_DyejIwDaNT-qs-lpiv2Y8quOx9gOtgj/edit?usp=sharing&ouid=114764656424854320733&rtpof=true&sd=true&embed=true" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- quick metrics (unchanged) -->
+                <div style="background-color: #eaf3e8; border-radius: var(--border-radius); padding: 25px; margin-top: 30px;">
+                    <h5 style="color: var(--primary-color);">Key Improvements (test results):</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 15px;">
+                        <div><span style="font-weight:700; color:var(--accent-color);">↑ 48%</span> task success rate</div>
+                        <div><span style="font-weight:700; color:var(--accent-color);">↓ 62%</span> time-on-task</div>
+                        <div><span style="font-weight:700; color:var(--accent-color);">↑ 4.5/5</span> user satisfaction</div>
+                        <div><span style="font-weight:700; color:var(--accent-color);">↓ 73%</span> support calls</div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -1897,6 +1982,23 @@
                 yearSpan.innerHTML = yearSpan.innerHTML.replace('2024', new Date().getFullYear());
             }
         });
+
+        // ---------- Collapsible PPT toggle ----------
+        const pptToggle = document.getElementById('pptToggle');
+        const pptContent = document.getElementById('pptContent');
+
+        if (pptToggle && pptContent) {
+            pptToggle.addEventListener('click', function() {
+                const expanded = this.getAttribute('aria-expanded') === 'true' ? false : true;
+                this.setAttribute('aria-expanded', expanded);
+                pptContent.classList.toggle('show');
+                // rotate chevron
+                const icon = this.querySelector('i');
+                if (icon) {
+                    icon.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0)';
+                }
+            });
+        }
     </script>
 </body>
 </html>
