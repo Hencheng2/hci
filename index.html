@@ -493,14 +493,15 @@
             pointer-events: none;
         }
 
-        .prototype-comparison {
+        /* updated: now only "after" items remain */
+        .prototype-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 30px;
         }
 
-        .comparison-item {
+        .showcase-item {
             background-color: white;
             border-radius: var(--border-radius);
             padding: 25px;
@@ -508,26 +509,19 @@
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
+            border-top: 4px solid var(--accent-color); /* unified accent for after */
         }
-        .comparison-item:hover {
+        .showcase-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
-        .comparison-item img {
+        .showcase-item img {
             width: 100%;
             height: auto;
             border-radius: 8px;
             margin-top: 15px;
             border: 1px solid #eee;
             pointer-events: none;
-        }
-
-        .comparison-item.before {
-            border-top: 4px solid #c01c28;
-        }
-
-        .comparison-item.after {
-            border-top: 4px solid var(--accent-color);
         }
 
         /* User & Task Analysis Components */
@@ -1031,7 +1025,7 @@
                 grid-template-columns: 1fr;
             }
             
-            .prototype-comparison {
+            .prototype-showcase {
                 grid-template-columns: 1fr;
             }
         }
@@ -1423,7 +1417,7 @@
                 </div>
             </div>
             
-            <!-- Design Alternatives (unchanged, keep images if needed) -->
+            <!-- Design Alternatives (unchanged) -->
             <div class="project-section" style="margin-top: 40px;">
                 <div class="project-header">
                     <div class="project-icon">
@@ -1542,7 +1536,7 @@
                 </div>
             </div>
             
-            <!-- Final Prototype (unchanged, images remain) -->
+            <!-- Final Prototype & Screenshots — updated to show only "after" solutions, no before -->
             <div class="project-section" style="margin-top: 40px;">
                 <div class="project-header">
                     <div class="project-icon">
@@ -1552,56 +1546,36 @@
                 </div>
                 
                 <h4 style="color: var(--primary-color); margin-bottom: 15px;">FINAL PROTOTYPE SCREENSHOTS</h4>
-                <p>The final prototype addresses the HCI issues identified in the existing system. Below are screenshots showing how our redesign solves the key problems:</p>
+                <p>The final prototype addresses the HCI issues identified in the existing system. Below are key screenshots showcasing how our redesign provides clear, consistent, and user-friendly interactions.</p>
                 
-                <!-- Before/After Comparison -->
-                <h5 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">PROBLEM SOLUTIONS - BEFORE & AFTER</h5>
-                <div class="prototype-comparison">
-                    <!-- Comparison 1 -->
-                    <div class="comparison-item before" onclick="openLightbox(this)">
-                        <h5>Before: Cognitive Overload</h5>
-                        <p>Forms with 50+ fields displayed at once</p>
-                        <img src="images/before-cognitive-overload.jpg" alt="Before - Complex form">
-                    </div>
-                    <div class="comparison-item after" onclick="openLightbox(this)">
-                        <h5>After: Manageable Steps</h5>
-                        <p>Wizard-based design with 5-7 steps</p>
+                <!-- PROBLEM SOLUTIONS – now only "after" items (images remain, descriptions unchanged) -->
+                <h5 style="color: var(--primary-color); margin-top: 30px; margin-bottom: 15px;">DESIGN SOLUTIONS IN THE FINAL PROTOTYPE</h5>
+                <div class="prototype-showcase">
+                    <!-- after: Manageable Steps (formerly after item) -->
+                    <div class="showcase-item" onclick="openLightbox(this)">
+                        <h5>Manageable Steps</h5>
+                        <p>Wizard-based design with 5-7 logical steps reduces cognitive load</p>
                         <img src="images/after-step-by-step.jpg" alt="After - Step-by-step form">
                     </div>
                     
-                    <!-- Comparison 2 -->
-                    <div class="comparison-item before" onclick="openLightbox(this)">
-                        <h5>Before: Inconsistent Design</h5>
-                        <p>Different layouts across services</p>
-                        <img src="images/before-inconsistent.jpg" alt="Before - Inconsistent layouts">
-                    </div>
-                    <div class="comparison-item after" onclick="openLightbox(this)">
-                        <h5>After: Consistent Design System</h5>
-                        <p>Uniform layout across all services</p>
+                    <!-- after: Consistent Design System -->
+                    <div class="showcase-item" onclick="openLightbox(this)">
+                        <h5>Consistent Design System</h5>
+                        <p>Uniform layout and patterns across all services for predictability</p>
                         <img src="images/after-consistent.jpg" alt="After - Consistent design">
                     </div>
                     
-                    <!-- Comparison 3 -->
-                    <div class="comparison-item before" onclick="openLightbox(this)">
-                        <h5>Before: Poor Navigation</h5>
-                        <p>Complex menu structures</p>
-                        <img src="images/before-poor-navigation.jpg" alt="Before - Poor navigation">
-                    </div>
-                    <div class="comparison-item after" onclick="openLightbox(this)">
-                        <h5>After: Clear Navigation</h5>
-                        <p>Simple, intuitive navigation</p>
+                    <!-- after: Clear Navigation -->
+                    <div class="showcase-item" onclick="openLightbox(this)">
+                        <h5>Clear Navigation</h5>
+                        <p>Simple, intuitive menu structure with visual cues</p>
                         <img src="images/after-clear-navigation.jpg" alt="After - Clear navigation">
                     </div>
                     
-                    <!-- Comparison 4 -->
-                    <div class="comparison-item before" onclick="openLightbox(this)">
-                        <h5>Before: Bad Error Messages</h5>
-                        <p>Generic, unhelpful error messages</p>
-                        <img src="images/before-bad-errors.jpg" alt="Before - Bad error messages">
-                    </div>
-                    <div class="comparison-item after" onclick="openLightbox(this)">
-                        <h5>After: Helpful Error Messages</h5>
-                        <p>Specific, actionable error guidance</p>
+                    <!-- after: Helpful Error Messages -->
+                    <div class="showcase-item" onclick="openLightbox(this)">
+                        <h5>Helpful Error Messages</h5>
+                        <p>Specific, actionable guidance to correct mistakes</p>
                         <img src="images/after-helpful-errors.jpg" alt="After - Helpful error messages">
                     </div>
                 </div>
@@ -1786,7 +1760,7 @@
     </footer>
 
     <script>
-        // Lightbox functions (unchanged, but ensure it works with remaining images)
+        // Lightbox functions (unchanged)
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightboxImg');
         const lightboxCaption = document.getElementById('lightboxCaption');
@@ -1826,8 +1800,8 @@
             }
         });
 
-        // Add click listeners to relevant containers (excluding hci-issue-item which has no image)
-        document.querySelectorAll('.gallery-item, .design-image-container, .comparison-item, .prototype-screenshot').forEach(el => {
+        // Add click listeners to relevant containers
+        document.querySelectorAll('.gallery-item, .design-image-container, .showcase-item, .prototype-screenshot').forEach(el => {
             if (!el.hasAttribute('onclick')) {
                 el.addEventListener('click', function() { openLightbox(this); });
             }
