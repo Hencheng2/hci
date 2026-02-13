@@ -928,7 +928,7 @@
             color: #ccc;
         }
 
-        /* ---------- Collapsible PPT panel (slides only, navigation arrows) ---------- */
+        /* ---------- Collapsible PPT panel with manual navigation ---------- */
         .collapsible-ppt {
             margin: 30px 0 10px;
             border: 1px solid #e0e7ef;
@@ -970,19 +970,50 @@
             background-color: white;
         }
         .ppt-content.show {
-            max-height: 700px; /* enough to show iframe */
+            max-height: 700px; /* enough to show iframe + buttons */
             transition: max-height 0.6s ease-in;
         }
         .ppt-iframe-wrapper {
-            padding: 25px;
+            padding: 25px 25px 15px;
             background: #f1f5f9;
         }
         .ppt-iframe-wrapper iframe {
             width: 100%;
-            height: 450px;
+            height: 400px;
             border: 0;
             border-radius: 8px;
             box-shadow: var(--shadow);
+        }
+        .ppt-nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 15px 25px 25px;
+            background: #f1f5f9;
+        }
+        .ppt-nav-btn {
+            background-color: white;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .ppt-nav-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(26,95,180,0.2);
+        }
+        .ppt-nav-btn i {
+            font-size: 1.1rem;
         }
 
         /* Responsive Design */
@@ -1086,7 +1117,10 @@
                 grid-template-columns: 1fr;
             }
             .ppt-iframe-wrapper iframe {
-                height: 300px;
+                height: 280px;
+            }
+            .ppt-nav-buttons {
+                flex-wrap: wrap;
             }
         }
     </style>
@@ -1681,7 +1715,7 @@
                 </div>
             </div>
             
-            <!-- Final Evaluation & Results — with collapsible PPT panel (slides only, navigation arrows) -->
+            <!-- Final Evaluation & Results — with collapsible PPT panel and custom prev/next buttons -->
             <div class="project-section" style="margin-top: 40px;">
                 <div class="project-header">
                     <div class="project-icon">
@@ -1692,7 +1726,7 @@
                 <!-- summary text -->
                 <p>We conducted usability testing with 20 participants representing diverse digital literacy levels. The redesigned prototype showed significant improvements across all key metrics. For full details, including comparative data and user feedback, explore our presentation slides below.</p>
                 
-                <!-- collapsible PPT embed (presentation mode: only slides + next/prev, no edit) -->
+                <!-- collapsible PPT embed with manual navigation -->
                 <div class="collapsible-ppt">
                     <button class="ppt-toggle" id="pptToggle" aria-expanded="false">
                         <i class="fas fa-chevron-right"></i> 
@@ -1700,8 +1734,13 @@
                     </button>
                     <div class="ppt-content" id="pptContent">
                         <div class="ppt-iframe-wrapper">
-                            <!-- using embed with slide controls only (no menu bar) by adding rm=minimal and chrome parameters -->
-                            <iframe src="https://docs.google.com/presentation/d/1_DyejIwDaNT-qs-lpiv2Y8quOx9gOtgj/preview?rm=minimal&usp=sharing" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                            <!-- Use the new presentation ID with /preview for slides-only view -->
+                            <iframe src="https://docs.google.com/presentation/d/1YHGdJt84GyE8dV_40DI_--3Hr1lXmuLr/preview" id="pptIframe" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                        </div>
+                        <!-- Manual navigation buttons (next/prev) -->
+                        <div class="ppt-nav-buttons">
+                            <button class="ppt-nav-btn" id="prevSlideBtn"><i class="fas fa-arrow-left"></i> Previous</button>
+                            <button class="ppt-nav-btn" id="nextSlideBtn">Next <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -1984,9 +2023,10 @@
             }
         });
 
-        // ---------- Collapsible PPT toggle ----------
+        // ---------- Collapsible PPT toggle & manual slide navigation ----------
         const pptToggle = document.getElementById('pptToggle');
         const pptContent = document.getElementById('pptContent');
+        const pptIframe = document.getElementById('pptIframe');
 
         if (pptToggle && pptContent) {
             pptToggle.addEventListener('click', function() {
@@ -1998,6 +2038,29 @@
                 if (icon) {
                     icon.style.transform = expanded ? 'rotate(90deg)' : 'rotate(0)';
                 }
+            });
+        }
+
+        // Manual slide navigation using postMessage (for Google Slides iframe)
+        const prevBtn = document.getElementById('prevSlideBtn');
+        const nextBtn = document.getElementById('nextSlideBtn');
+
+        function sendSlideCommand(command) {
+            if (pptIframe && pptIframe.contentWindow) {
+                pptIframe.contentWindow.postMessage(command, '*');
+            }
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                sendSlideCommand('prev');
+            });
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                sendSlideCommand('next');
             });
         }
     </script>
